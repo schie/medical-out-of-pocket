@@ -4,22 +4,17 @@ import type { RootState, AppDispatch, Procedure } from '../store';
 import { addProcedure } from '../store/proceduresSlice';
 import ProcedureItem from './ProcedureItem';
 import { selectProcedures } from '../store/selectors';
+import useProcedureValidation from '../hooks/useProcedureValidation';
 export default function ProceduresCard() {
   const dispatch = useDispatch<AppDispatch>();
   const procedures = useSelector(selectProcedures);
 
   const [name, setName] = useState('');
   const [cost, setCost] = useState('');
-  const parsedCost = parseFloat(cost);
-  const isInvalid = !name.trim() || isNaN(parsedCost) || parsedCost < 0;
-  let errorMessage = '';
-  if (!name.trim()) {
-    errorMessage = 'Name is required';
-  } else if (isNaN(parsedCost)) {
-    errorMessage = 'Cost is required';
-  } else if (parsedCost < 0) {
-    errorMessage = 'Cost cannot be negative';
-  }
+  const { parsedCost, isInvalid, errorMessage } = useProcedureValidation(
+    name,
+    cost,
+  );
 
   const handleNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,11 +36,10 @@ export default function ProceduresCard() {
   }, []);
 
   const handleAdd = useCallback(() => {
-    const parsed = parseFloat(cost);
-    if (!name.trim() || isNaN(parsed) || parsed < 0) return;
-    dispatch(addProcedure({ id: '', name, cost: parsed } as Procedure));
+    if (isInvalid) return;
+    dispatch(addProcedure({ id: '', name, cost: parsedCost } as Procedure));
     resetAddForm();
-  }, [cost, name, dispatch, resetAddForm]);
+  }, [isInvalid, parsedCost, name, dispatch, resetAddForm]);
 
   return (
     <div className="card bg-base-200 shadow-xl p-4">

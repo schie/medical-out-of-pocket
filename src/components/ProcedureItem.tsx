@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch, Procedure } from '../store';
 import { updateProcedure, removeProcedure } from '../store/proceduresSlice';
+import useProcedureValidation from '../hooks/useProcedureValidation';
 
 interface ProcedureItemProps {
   procedure: Procedure;
@@ -12,16 +13,10 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(procedure.name);
   const [cost, setCost] = useState(procedure.cost.toString());
-  const parsedCost = parseFloat(cost);
-  const isInvalid = !name.trim() || isNaN(parsedCost) || parsedCost < 0;
-  let errorMessage = '';
-  if (!name.trim()) {
-    errorMessage = 'Name is required';
-  } else if (isNaN(parsedCost)) {
-    errorMessage = 'Cost is required';
-  } else if (parsedCost < 0) {
-    errorMessage = 'Cost cannot be negative';
-  }
+  const { parsedCost, isInvalid, errorMessage } = useProcedureValidation(
+    name,
+    cost,
+  );
 
   const startEdit = useCallback(() => {
     setIsEditing(true);
@@ -34,11 +29,10 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
   }, [procedure.cost, procedure.name]);
 
   const saveEdit = useCallback(() => {
-    const parsed = parseFloat(cost);
-    if (!name.trim() || isNaN(parsed) || parsed < 0) return;
-    dispatch(updateProcedure({ id: procedure.id, name, cost: parsed }));
+    if (isInvalid) return;
+    dispatch(updateProcedure({ id: procedure.id, name, cost: parsedCost }));
     setIsEditing(false);
-  }, [dispatch, cost, name, procedure.id]);
+  }, [dispatch, isInvalid, parsedCost, name, procedure.id]);
 
   const remove = useCallback(() => {
     dispatch(removeProcedure(procedure.id));
