@@ -65,9 +65,11 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
             onChange={handleCostChange}
           />
           <button className="btn btn-primary btn-sm" onClick={saveEdit}>
+            <i className="fa-solid fa-check mr-1" aria-hidden="true"></i>
             Save
           </button>
           <button className="btn btn-ghost btn-sm" onClick={cancelEdit}>
+            <i className="fa-solid fa-xmark mr-1" aria-hidden="true"></i>
             Cancel
           </button>
         </>
@@ -77,9 +79,11 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
             {procedure.name} - ${procedure.cost.toFixed(2)}
           </span>
           <button className="btn btn-sm" onClick={startEdit}>
+            <i className="fa-solid fa-pen mr-1" aria-hidden="true"></i>
             Edit
           </button>
           <button className="btn btn-error btn-sm" onClick={remove}>
+            <i className="fa-solid fa-trash mr-1" aria-hidden="true"></i>
             Remove
           </button>
         </>

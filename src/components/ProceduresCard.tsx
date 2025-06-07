@@ -56,6 +56,7 @@ export default function ProceduresCard() {
           onChange={handleCostChange}
         />
         <button className="btn btn-primary" onClick={handleAdd}>
+          <i className="fa-solid fa-plus mr-2" aria-hidden="true"></i>
           Add
         </button>
       </div>
