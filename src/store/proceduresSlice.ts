@@ -61,7 +61,12 @@ const proceduresSlice = createSlice({
   },
 });
 
-export const { addProcedure, removeProcedure, toggleProcedure, toggleAllProcedures } =
-  proceduresSlice.actions;
+export const {
+  addProcedure,
+  updateProcedure,
+  removeProcedure,
+  toggleProcedure,
+  toggleAllProcedures,
+} = proceduresSlice.actions;
 
 export default proceduresSlice.reducer;
