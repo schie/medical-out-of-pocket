@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import type { RootState, AppDispatch, Procedure } from '../store';
 import { addProcedure } from '../store/proceduresSlice';
 import ProcedureItem from './ProcedureItem';
-
-const selectProcedures = (state: RootState) => state.procedures.list;
-
+import { selectProcedures } from '../store/selectors';
 export default function ProceduresCard() {
   const dispatch = useDispatch<AppDispatch>();
   const procedures = useSelector(selectProcedures);
