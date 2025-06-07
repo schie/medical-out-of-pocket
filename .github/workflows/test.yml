@@ -1,0 +1,40 @@
+name: PR Tests
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
+      - name: Run tests
+        id: tests
+        run: |
+          set +e
+          npm test > test_output.txt 2>&1
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Prepare comment
+        if: always()
+        run: |
+          STATUS=$([ "${{ steps.tests.outputs.exit_code }}" = "0" ] && echo "Passed" || echo "Failed")
+          {
+            echo "## Test Results: $STATUS"
+            echo '```'
+            cat test_output.txt
+            echo '```'
+          } > comment.txt
+      - name: Post test results
+        if: always()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-path: comment.txt
+
