@@ -12,6 +12,16 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(procedure.name);
   const [cost, setCost] = useState(procedure.cost.toString());
+  const parsedCost = parseFloat(cost);
+  const isInvalid = !name.trim() || isNaN(parsedCost) || parsedCost < 0;
+  let errorMessage = '';
+  if (!name.trim()) {
+    errorMessage = 'Name is required';
+  } else if (isNaN(parsedCost)) {
+    errorMessage = 'Cost is required';
+  } else if (parsedCost < 0) {
+    errorMessage = 'Cost cannot be negative';
+  }
 
   const startEdit = useCallback(() => {
     setIsEditing(true);
@@ -24,9 +34,9 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
   }, [procedure.cost, procedure.name]);
 
   const saveEdit = useCallback(() => {
-    const parsedCost = parseFloat(cost);
-    if (!name || isNaN(parsedCost)) return;
-    dispatch(updateProcedure({ id: procedure.id, name, cost: parsedCost }));
+    const parsed = parseFloat(cost);
+    if (!name.trim() || isNaN(parsed) || parsed < 0) return;
+    dispatch(updateProcedure({ id: procedure.id, name, cost: parsed }));
     setIsEditing(false);
   }, [dispatch, cost, name, procedure.id]);
 
@@ -61,15 +71,23 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
           <input
             type="number"
             className="input input-bordered w-24"
+            min="0"
             value={cost}
             onChange={handleCostChange}
           />
-          <button className="btn btn-primary btn-sm" onClick={saveEdit}>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={saveEdit}
+            disabled={isInvalid}
+          >
             Save
           </button>
           <button className="btn btn-ghost btn-sm" onClick={cancelEdit}>
             Cancel
           </button>
+          {errorMessage && (
+            <p className="text-error text-sm">{errorMessage}</p>
+          )}
         </>
       ) : (
         <>
