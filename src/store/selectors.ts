@@ -2,6 +2,8 @@ import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from './index';
 import type { Insurance } from './insuranceSlice';
 
+export const selectProcedures = (state: RootState) => state.procedures.list;
+
 export const sumSelectedProceduresCost = createSelector(
   (state: RootState) => state.procedures,
   ({ list, selectedIds }) => {
