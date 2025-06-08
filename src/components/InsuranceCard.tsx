@@ -8,10 +8,25 @@ interface InsuranceCardProps {
 }
 
 export default function InsuranceCard({ label, insurance, onChange }: InsuranceCardProps) {
+  const updateInsuranceField = (
+    insurance: Insurance,
+    field: keyof Insurance | keyof Insurance['usage'],
+    value: string | number,
+    nestedField?: 'usage',
+  ): Insurance => {
+    if (nestedField) {
+      return {
+        ...insurance,
+        [nestedField]: { ...insurance[nestedField], [field]: value },
+      };
+    }
+    return { ...insurance, [field]: value };
+  };
+
   const handleChange = useCallback(
     (field: keyof Insurance) => (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = field === 'name' ? e.target.value : Number(e.target.value);
-      onChange({ ...insurance, [field]: value });
+      onChange(updateInsuranceField(insurance, field, value));
     },
     [insurance, onChange],
   );

@@ -27,6 +27,10 @@ function App() {
   const { primary, secondary } = useSelector((state: RootState) => state.insurance);
   const [showSecondary, setShowSecondary] = useState(Boolean(secondary));
 
+  // Synchronize showSecondary with the Redux state
+  useEffect(() => {
+    setShowSecondary(Boolean(secondary));
+  }, [secondary]);
   const handlePrimaryChange = useCallback(
     (ins: Insurance) => {
       dispatch(setPrimaryInsurance(ins));
