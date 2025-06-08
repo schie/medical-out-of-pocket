@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/schie/medical-out-of-pocket/compare/v1.1.0...v1.1.1) (2025-06-08)
+
+
+### Bug Fixes
+
+* **app:** adding missing import of `useEffect` ([bdb91cd](https://github.com/schie/medical-out-of-pocket/commit/bdb91cd0a01a929b7cae39b2460b140ceddb73f5))
+
 ## [1.1.0](https://github.com/schie/medical-out-of-pocket/compare/v1.0.0...v1.1.0) (2025-06-08)
 
 
