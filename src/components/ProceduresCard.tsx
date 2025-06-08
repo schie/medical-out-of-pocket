@@ -73,7 +73,7 @@ export default function ProceduresCard() {
           onClick={handleAdd}
           disabled={isInvalid}
         >
-          <i className="fa-solid fa-plus mr-1" />Add
+          <i className="fa-solid fa-plus mr-1" aria-hidden="true" />Add
         </button>
       </div>
       {errorMessage && (
