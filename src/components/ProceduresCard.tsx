@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch, Procedure } from '../store';
+import type { AppDispatch, Procedure } from '../store';
 import { addProcedure } from '../store/proceduresSlice';
 import ProcedureItem from './ProcedureItem';
 import { selectProcedures } from '../store/selectors';
@@ -11,24 +11,15 @@ export default function ProceduresCard() {
 
   const [name, setName] = useState('');
   const [cost, setCost] = useState('');
-  const { parsedCost, isInvalid, errorMessage } = useProcedureValidation(
-    name,
-    cost,
-  );
+  const { parsedCost, isInvalid, errorMessage } = useProcedureValidation(name, cost);
 
-  const handleNameChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setName(e.target.value);
-    },
-    [],
-  );
+  const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  }, []);
 
-  const handleCostChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCost(e.target.value);
-    },
-    [],
-  );
+  const handleCostChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setCost(e.target.value);
+  }, []);
 
   const resetAddForm = useCallback(() => {
     setName('');
@@ -44,7 +35,8 @@ export default function ProceduresCard() {
   return (
     <div className="card bg-base-200 shadow-xl p-4">
       <h2 className="card-title mb-4">
-        <i aria-hidden="true" className="fa-solid fa-notes-medical mr-2" />Procedures
+        <i aria-hidden="true" className="fa-solid fa-notes-medical mr-2" />
+        Procedures
       </h2>
       <div className="flex gap-2 mb-2 items-start">
         <input
@@ -62,17 +54,12 @@ export default function ProceduresCard() {
           value={cost}
           onChange={handleCostChange}
         />
-        <button
-          className="btn btn-primary"
-          onClick={handleAdd}
-          disabled={isInvalid}
-        >
-          <i className="fa-solid fa-plus mr-1" aria-hidden="true" />Add
+        <button className="btn btn-primary" onClick={handleAdd} disabled={isInvalid}>
+          <i className="fa-solid fa-plus mr-1" aria-hidden="true" />
+          Add
         </button>
       </div>
-      {errorMessage && (
-        <p className="text-error text-sm mb-4">{errorMessage}</p>
-      )}
+      {errorMessage && <p className="text-error text-sm mb-4">{errorMessage}</p>}
       <ul className="space-y-2">
         {procedures.map((p) => (
           <ProcedureItem key={p.id} procedure={p} />
@@ -81,4 +68,3 @@ export default function ProceduresCard() {
     </div>
   );
 }
-
