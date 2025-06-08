@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import ProceduresCard from './components/ProceduresCard';
@@ -35,14 +35,14 @@ function App() {
     (ins: Insurance) => {
       dispatch(setPrimaryInsurance(ins));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const handleSecondaryChange = useCallback(
     (ins: Insurance) => {
       dispatch(setSecondaryInsurance(ins));
     },
-    [dispatch],
+    [dispatch]
   );
 
   const addSecondary = useCallback(() => {
@@ -59,11 +59,7 @@ function App() {
 
   return (
     <div className="p-4 space-y-4">
-      <InsuranceCard
-        label="Primary Insurance"
-        insurance={primary}
-        onChange={handlePrimaryChange}
-      />
+      <InsuranceCard label="Primary Insurance" insurance={primary} onChange={handlePrimaryChange} />
       {showSecondary ? (
         <div className="space-y-2">
           <InsuranceCard
