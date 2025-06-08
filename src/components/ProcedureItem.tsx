@@ -80,10 +80,10 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
             onClick={saveEdit}
             disabled={isInvalid}
           >
-            Save
+            <i className="fa-solid fa-floppy-disk mr-1" />Save
           </button>
           <button className="btn btn-ghost btn-sm" onClick={cancelEdit}>
-            Cancel
+            <i className="fa-solid fa-xmark mr-1" />Cancel
           </button>
           {errorMessage && (
             <p className="text-error text-sm">{errorMessage}</p>
@@ -95,10 +95,10 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
             {procedure.name} - ${procedure.cost.toFixed(2)}
           </span>
           <button className="btn btn-sm" onClick={startEdit}>
-            Edit
+            <i className="fa-solid fa-pen mr-1" />Edit
           </button>
           <button className="btn btn-error btn-sm" onClick={remove}>
-            Remove
+            <i className="fa-solid fa-trash mr-1" />Remove
           </button>
         </>
       )}

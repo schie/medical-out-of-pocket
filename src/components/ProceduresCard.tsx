@@ -49,7 +49,9 @@ export default function ProceduresCard() {
 
   return (
     <div className="card bg-base-200 shadow-xl p-4">
-      <h2 className="card-title mb-4">Procedures</h2>
+      <h2 className="card-title mb-4">
+        <i className="fa-solid fa-notes-medical mr-2" />Procedures
+      </h2>
       <div className="flex gap-2 mb-2 items-start">
         <input
           type="text"
@@ -71,7 +73,7 @@ export default function ProceduresCard() {
           onClick={handleAdd}
           disabled={isInvalid}
         >
-          Add
+          <i className="fa-solid fa-plus mr-1" />Add
         </button>
       </div>
       {errorMessage && (
