@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/schie/medical-out-of-pocket/compare/v1.0.0...v1.1.0) (2025-06-08)
+
+
+### Features
+
+* Adding insurance plan card ([#15](https://github.com/schie/medical-out-of-pocket/issues/15)) ([a7b3dd8](https://github.com/schie/medical-out-of-pocket/commit/a7b3dd891c6b11c0fcae56aa0ac9ef05174cac3a))
+* **ui:** enhance procedure forms with validator ([46daf3c](https://github.com/schie/medical-out-of-pocket/commit/46daf3c692480b36aa5858031ca5038a2c247eb3))
+
+
+### Bug Fixes
+
+* **ui:** align procedure items left and add scrolling ([d77915e](https://github.com/schie/medical-out-of-pocket/commit/d77915ee6e688a1c0f6736cbf7d27e2980c2e531))
+
 ## 1.0.0 (2025-06-08)
 
 
