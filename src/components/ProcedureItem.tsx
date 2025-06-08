@@ -53,7 +53,7 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
   );
 
   return (
-    <li className="flex items-center gap-2">
+    <li className="flex items-center gap-2 text-left">
       {isEditing ? (
         <>
           <input
