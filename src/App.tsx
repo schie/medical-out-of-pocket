@@ -50,14 +50,19 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 flex flex-col md:flex-row gap-4 items-start">
+      <ProceduresCard />
       <InsuranceCard
         label="Primary Insurance"
         insurance={primary}
         onChange={handlePrimaryChange}
         cornerButton={
           !secondary && (
-            <button className="btn btn-circle btn-sm btn-primary" onClick={addSecondary} aria-label="Add Secondary Insurance">
+            <button
+              className="btn btn-circle btn-xs btn-primary"
+              onClick={addSecondary}
+              aria-label="Add Secondary Insurance"
+            >
               <i className="fa-solid fa-plus" aria-hidden="true" />
             </button>
           )
@@ -69,13 +74,16 @@ function App() {
           insurance={secondary}
           onChange={handleSecondaryChange}
           cornerButton={
-            <button className="btn btn-circle btn-sm btn-error" onClick={removeSecondary} aria-label="Remove Secondary Insurance">
+            <button
+              className="btn btn-circle btn-xs btn-error"
+              onClick={removeSecondary}
+              aria-label="Remove Secondary Insurance"
+            >
               <i className="fa-solid fa-trash" aria-hidden="true" />
             </button>
           }
         />
       )}
-      <ProceduresCard />
     </div>
   );
 }
