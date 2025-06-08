@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch, Procedure } from '../store';
-import { updateProcedure, removeProcedure } from '../store/proceduresSlice';
+import { updateProcedure, removeProcedure, toggleProcedure } from '../store/proceduresSlice';
 import useProcedureValidation from '../hooks/useProcedureValidation';
 
 interface ProcedureItemProps {
-  procedure: Procedure;
+  procedure: Procedure & { selected?: boolean };
 }
 
 export default function ProcedureItem({ procedure }: ProcedureItemProps) {
@@ -13,10 +13,7 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(procedure.name);
   const [cost, setCost] = useState(procedure.cost.toString());
-  const { parsedCost, isInvalid, errorMessage } = useProcedureValidation(
-    name,
-    cost,
-  );
+  const { parsedCost, isInvalid, errorMessage } = useProcedureValidation(name, cost);
 
   const startEdit = useCallback(() => {
     setIsEditing(true);
@@ -38,19 +35,17 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
     dispatch(removeProcedure(procedure.id));
   }, [dispatch, procedure.id]);
 
-  const handleNameChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setName(e.target.value);
-    },
-    [],
-  );
+  const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  }, []);
 
-  const handleCostChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCost(e.target.value);
-    },
-    [],
-  );
+  const handleCostChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setCost(e.target.value);
+  }, []);
+
+  const handleToggle = useCallback(() => {
+    dispatch(toggleProcedure(procedure.id));
+  }, [dispatch, procedure.id]);
 
   return (
     <li className="flex items-center gap-2 text-left">
@@ -80,29 +75,37 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
             onClick={saveEdit}
             disabled={isInvalid}
           >
-            <i className="fa-solid fa-floppy-disk mr-1" aria-hidden="true" />Save
+            <i className="fa-solid fa-floppy-disk mr-1" aria-hidden="true" />
+            Save
           </button>
           <button className="btn btn-ghost btn-sm join-item" onClick={cancelEdit}>
-            <i className="fa-solid fa-xmark mr-1" aria-hidden="true" />Cancel
+            <i className="fa-solid fa-xmark mr-1" aria-hidden="true" />
+            Cancel
           </button>
-          {errorMessage && (
-            <div className="validator-hint text-error text-sm">{errorMessage}</div>
-          )}
+          {errorMessage && <div className="validator-hint text-error text-sm">{errorMessage}</div>}
         </>
       ) : (
         <>
+          <input
+            type="checkbox"
+            defaultChecked
+            className="checkbox"
+            checked={procedure.selected}
+            onClick={handleToggle}
+          />
           <span className="flex-1">
             {procedure.name} - ${procedure.cost.toFixed(2)}
           </span>
           <button className="btn btn-sm" onClick={startEdit}>
-            <i className="fa-solid fa-pen mr-1" aria-hidden="true" />Edit
+            <i className="fa-solid fa-pen mr-1" aria-hidden="true" />
+            Edit
           </button>
           <button className="btn btn-error btn-sm" onClick={remove}>
-            <i className="fa-solid fa-trash mr-1" aria-hidden="true" />Remove
+            <i className="fa-solid fa-trash mr-1" aria-hidden="true" />
+            Remove
           </button>
         </>
       )}
     </li>
   );
 }
-

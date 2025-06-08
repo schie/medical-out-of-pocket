@@ -25,11 +25,13 @@ const proceduresSlice = createSlice({
   initialState,
   reducers: {
     addProcedure: (state, action: PayloadAction<Procedure>) => {
-      state.list.push({ ...action.payload, id: crypto.randomUUID() });
+      const id = crypto.randomUUID();
+      state.list.push({ ...action.payload, id });
+      state.selectedIds[id] = true; // Initialize as not selected
     },
     updateProcedure: (
       state,
-      action: PayloadAction<{ id: string; name?: string; cost?: number }>,
+      action: PayloadAction<{ id: string; name?: string; cost?: number }>
     ) => {
       const { id, name, cost } = action.payload;
       const procedure = state.list.find((p) => p.id === id);
@@ -40,6 +42,7 @@ const proceduresSlice = createSlice({
     },
     removeProcedure: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter((p) => p.id !== action.payload);
+      delete state.selectedIds[action.payload]; // Remove from selectedIds
     },
     toggleProcedure: (state, action: PayloadAction<string>) => {
       const id = action.payload;

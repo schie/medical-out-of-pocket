@@ -11,7 +11,7 @@ export default function ProceduresCard() {
 
   const [name, setName] = useState('');
   const [cost, setCost] = useState('');
-  const { parsedCost, isInvalid, errorMessage } = useProcedureValidation(name, cost);
+  const { parsedCost, isInvalid } = useProcedureValidation(name, cost);
 
   const handleNameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -33,7 +33,7 @@ export default function ProceduresCard() {
   }, [isInvalid, parsedCost, name, dispatch, resetAddForm]);
 
   return (
-    <div className="card bg-base-200 shadow-xl p-4">
+    <div className="card bg-base-200 shadow-xl p-4 dark:shadow-white/20">
       <h2 className="card-title mb-4">
         <i aria-hidden="true" className="fa-solid fa-notes-medical mr-2" />
         Procedures
@@ -63,8 +63,7 @@ export default function ProceduresCard() {
           Add
         </button>
       </div>
-      {errorMessage && <div className="validator-hint text-error mb-4">{errorMessage}</div>}
-      <div className="max-h-80 overflow-y-auto">
+      <div className="max-h-111.5 overflow-y-auto">
         <ul className="space-y-2">
           {procedures.map((p) => (
             <ProcedureItem key={p.id} procedure={p} />

@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import reducer, {
   setPrimaryInsurance,
-  updatePrimaryUsage,
+  updatePrimaryOOPUsage,
   setSecondaryInsurance,
-  updateSecondaryUsage,
+  updateSecondaryOOPUsage,
   clearSecondaryInsurance,
   swapInsurances,
 } from '../src/store/insuranceSlice';
@@ -15,7 +15,7 @@ const sampleIns = {
   oopMax: 5000,
   coInsurance: 0.2,
   copay: 50,
-  usage: { deductibleUsed: 0, oopUsed: 0 },
+  oopUsed: 0,
 };
 
 test('setPrimaryInsurance replaces primary', () => {
@@ -23,9 +23,9 @@ test('setPrimaryInsurance replaces primary', () => {
   assert.equal(state.primary.name, 'A');
 });
 
-test('updatePrimaryUsage merges usage', () => {
-  const state = reducer({ primary: sampleIns }, updatePrimaryUsage({ deductibleUsed: 200 }));
-  assert.equal(state.primary.usage.deductibleUsed, 200);
+test('updatePrimaryOOPUsage merges usage', () => {
+  const state = reducer({ primary: sampleIns }, updatePrimaryOOPUsage(200));
+  assert.equal(state.primary.oopUsed, 200);
 });
 
 test('setSecondaryInsurance sets secondary', () => {
@@ -33,12 +33,9 @@ test('setSecondaryInsurance sets secondary', () => {
   assert.ok(state.secondary);
 });
 
-test('updateSecondaryUsage updates when secondary exists', () => {
-  const state = reducer(
-    { primary: sampleIns, secondary: sampleIns },
-    updateSecondaryUsage({ oopUsed: 100 })
-  );
-  assert.equal(state.secondary!.usage.oopUsed, 100);
+test('updateSecondaryOOPUsage updates when secondary exists', () => {
+  const state = reducer({ primary: sampleIns, secondary: sampleIns }, updateSecondaryOOPUsage(100));
+  assert.equal(state.secondary!.oopUsed, 100);
 });
 
 test('clearSecondaryInsurance removes secondary', () => {

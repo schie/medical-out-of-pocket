@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import ProceduresCard from './components/ProceduresCard';
 import InsuranceCard from './components/InsuranceCard';
-import type { AppDispatch, RootState, Insurance } from './store';
+import { type AppDispatch, type RootState, type Insurance } from './store';
 import {
   setPrimaryInsurance,
   setSecondaryInsurance,
   clearSecondaryInsurance,
 } from './store/insuranceSlice';
+import { ResponsibilityBreakdown } from './components/ResponsibilityBreakdown';
 
 const emptyInsurance: Insurance = {
   name: '',
@@ -16,10 +17,7 @@ const emptyInsurance: Insurance = {
   oopMax: 0,
   coInsurance: 0,
   copay: 0,
-  usage: {
-    deductibleUsed: 0,
-    oopUsed: 0,
-  },
+  oopUsed: 0,
 };
 
 function App() {
@@ -50,32 +48,51 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="p-4 space-y-4">
-      <InsuranceCard
-        label="Primary Insurance"
-        insurance={primary}
-        onChange={handlePrimaryChange}
-        cornerButton={
-          !secondary && (
-            <button className="btn btn-circle btn-sm btn-primary" onClick={addSecondary} aria-label="Add Secondary Insurance">
-              <i className="fa-solid fa-plus" aria-hidden="true" />
-            </button>
-          )
-        }
-      />
-      {secondary && (
-        <InsuranceCard
-          label="Secondary Insurance"
-          insurance={secondary}
-          onChange={handleSecondaryChange}
-          cornerButton={
-            <button className="btn btn-circle btn-sm btn-error" onClick={removeSecondary} aria-label="Remove Secondary Insurance">
-              <i className="fa-solid fa-trash" aria-hidden="true" />
-            </button>
-          }
-        />
-      )}
-      <ProceduresCard />
+    <div className="flex flex-col w-full gap-4 p-4">
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex-1 flex flex-col">
+          <ProceduresCard />
+        </div>
+        <div className="flex-1 flex flex-col">
+          <InsuranceCard
+            label="Primary Insurance"
+            insurance={primary}
+            onChange={handlePrimaryChange}
+            cornerButton={
+              !secondary && (
+                <button
+                  className="btn btn-circle btn-xs btn-primary"
+                  onClick={addSecondary}
+                  aria-label="Add Secondary Insurance"
+                >
+                  <i className="fa-solid fa-plus" aria-hidden="true" />
+                </button>
+              )
+            }
+          />
+        </div>
+        <div className="flex-1">
+          {secondary ? (
+            <InsuranceCard
+              label="Secondary Insurance"
+              insurance={secondary}
+              onChange={handleSecondaryChange}
+              cornerButton={
+                <button
+                  className="btn btn-circle btn-xs btn-error"
+                  onClick={removeSecondary}
+                  aria-label="Remove Secondary Insurance"
+                >
+                  <i className="fa-solid fa-trash" aria-hidden="true" />
+                </button>
+              }
+            />
+          ) : (
+            <ResponsibilityBreakdown isVertical />
+          )}
+        </div>
+      </div>
+      {secondary && <ResponsibilityBreakdown />}
     </div>
   );
 }

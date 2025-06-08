@@ -12,7 +12,7 @@ export interface Insurance {
   oopMax: number;
   coInsurance: number;
   copay: number;
-  usage: InsuranceUsage;
+  oopUsed?: number;
 }
 
 interface InsuranceState {
@@ -26,10 +26,7 @@ const emptyInsurance: Insurance = {
   oopMax: 0,
   coInsurance: 0,
   copay: 0,
-  usage: {
-    deductibleUsed: 0,
-    oopUsed: 0,
-  },
+  oopUsed: 0,
 };
 
 const initialState: InsuranceState = {
@@ -43,15 +40,15 @@ const insuranceSlice = createSlice({
     setPrimaryInsurance: (state, action: PayloadAction<Insurance>) => {
       state.primary = action.payload;
     },
-    updatePrimaryUsage: (state, action: PayloadAction<Partial<InsuranceUsage>>) => {
-      state.primary.usage = { ...state.primary.usage, ...action.payload };
+    updatePrimaryOOPUsage: (state, action: PayloadAction<number>) => {
+      state.primary.oopUsed = action.payload;
     },
     setSecondaryInsurance: (state, action: PayloadAction<Insurance>) => {
       state.secondary = action.payload;
     },
-    updateSecondaryUsage: (state, action: PayloadAction<Partial<InsuranceUsage>>) => {
+    updateSecondaryOOPUsage: (state, action: PayloadAction<number>) => {
       if (state.secondary) {
-        state.secondary.usage = { ...state.secondary.usage, ...action.payload };
+        state.secondary.oopUsed = action.payload;
       }
     },
     clearSecondaryInsurance: (state) => {
@@ -69,9 +66,9 @@ const insuranceSlice = createSlice({
 
 export const {
   setPrimaryInsurance,
-  updatePrimaryUsage,
+  updatePrimaryOOPUsage,
   setSecondaryInsurance,
-  updateSecondaryUsage,
+  updateSecondaryOOPUsage,
   clearSecondaryInsurance,
   swapInsurances,
 } = insuranceSlice.actions;
