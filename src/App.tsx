@@ -57,7 +57,7 @@ function App() {
         onChange={handlePrimaryChange}
         cornerButton={
           !secondary && (
-            <button className="btn btn-circle btn-sm btn-primary" onClick={addSecondary}>
+            <button className="btn btn-circle btn-sm btn-primary" onClick={addSecondary} aria-label="Add Secondary Insurance">
               <i className="fa-solid fa-plus" aria-hidden="true" />
             </button>
           )
@@ -69,7 +69,7 @@ function App() {
           insurance={secondary}
           onChange={handleSecondaryChange}
           cornerButton={
-            <button className="btn btn-circle btn-sm btn-error" onClick={removeSecondary}>
+            <button className="btn btn-circle btn-sm btn-error" onClick={removeSecondary} aria-label="Remove Secondary Insurance">
               <i className="fa-solid fa-trash" aria-hidden="true" />
             </button>
           }
