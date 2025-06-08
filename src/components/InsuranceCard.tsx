@@ -50,85 +50,113 @@ export default function InsuranceCard({ label, insurance, onChange, cornerButton
         <i aria-hidden="true" className="fa-solid fa-shield-halved mr-2" />
         {label}
       </h2>
-      <div className="flex flex-col gap-2">
-        <label className="input input-bordered flex items-center gap-2">
-          <i aria-hidden="true" className="fa-solid fa-id-card opacity-50" />
-          <input
-            type="text"
-            className="grow"
-            placeholder="Name"
-            value={insurance.name}
-            onChange={handleChange('name')}
-          />
-        </label>
-        <label className="input input-bordered flex items-center gap-2">
-          <span className="opacity-50">$</span>
-          <input
-            type="number"
-            className="grow"
-            placeholder="Deductible"
-            min="0"
-            value={insurance.deductible}
-            onChange={handleChange('deductible')}
-          />
-        </label>
-        <label className="input input-bordered flex items-center gap-2">
-          <span className="opacity-50">$</span>
-          <input
-            type="number"
-            className="grow"
-            placeholder="Out-of-pocket Max"
-            min="0"
-            value={insurance.oopMax}
-            onChange={handleChange('oopMax')}
-          />
-        </label>
-        <label className="input input-bordered flex items-center gap-2">
-          <span className="opacity-50">$</span>
-          <input
-            type="number"
-            className="grow"
-            placeholder="Copay"
-            min="0"
-            value={insurance.copay}
-            onChange={handleChange('copay')}
-          />
-        </label>
-        <label className="input input-bordered flex items-center gap-2">
-          <span className="opacity-50">%</span>
-          <input
-            type="number"
-            className="grow"
-            placeholder="Coinsurance"
-            step="0.01"
-            min="0"
-            max="1"
-            value={insurance.coInsurance}
-            onChange={handleChange('coInsurance')}
-          />
-        </label>
-        <label className="input input-bordered flex items-center gap-2">
-          <span className="opacity-50">$</span>
-          <input
-            type="number"
-            className="grow"
-            placeholder="Deductible Used"
-            min="0"
-            value={insurance.usage.deductibleUsed}
-            onChange={handleUsageChange('deductibleUsed')}
-          />
-        </label>
-        <label className="input input-bordered flex items-center gap-2">
-          <span className="opacity-50">$</span>
-          <input
-            type="number"
-            className="grow"
-            placeholder="OOP Used"
-            min="0"
-            value={insurance.usage.oopUsed}
-            onChange={handleUsageChange('oopUsed')}
-          />
-        </label>
+      <div className="flex flex-col gap-4">
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Name</span>
+          </label>
+          <label className="input input-bordered flex items-center gap-2">
+            <i aria-hidden="true" className="fa-solid fa-id-card opacity-50" />
+            <input
+              type="text"
+              className="grow"
+              value={insurance.name}
+              onChange={handleChange('name')}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Deductible</span>
+          </label>
+          <label className="input input-bordered flex items-center gap-2">
+            <span className="opacity-50">$</span>
+            <input
+              type="number"
+              className="grow"
+              min="0"
+              value={insurance.deductible}
+              onChange={handleChange('deductible')}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Out-of-pocket Max</span>
+          </label>
+          <label className="input input-bordered flex items-center gap-2">
+            <span className="opacity-50">$</span>
+            <input
+              type="number"
+              className="grow"
+              min="0"
+              value={insurance.oopMax}
+              onChange={handleChange('oopMax')}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Copay</span>
+          </label>
+          <label className="input input-bordered flex items-center gap-2">
+            <span className="opacity-50">$</span>
+            <input
+              type="number"
+              className="grow"
+              min="0"
+              value={insurance.copay}
+              onChange={handleChange('copay')}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Coinsurance</span>
+          </label>
+          <label className="input input-bordered flex items-center gap-2">
+            <span className="opacity-50">%</span>
+            <input
+              type="number"
+              className="grow"
+              step="0.01"
+              min="0"
+              max="1"
+              value={insurance.coInsurance}
+              onChange={handleChange('coInsurance')}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Deductible Used</span>
+          </label>
+          <label className="input input-bordered flex items-center gap-2">
+            <span className="opacity-50">$</span>
+            <input
+              type="number"
+              className="grow"
+              min="0"
+              value={insurance.usage.deductibleUsed}
+              onChange={handleUsageChange('deductibleUsed')}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">OOP Used</span>
+          </label>
+          <label className="input input-bordered flex items-center gap-2">
+            <span className="opacity-50">$</span>
+            <input
+              type="number"
+              className="grow"
+              min="0"
+              value={insurance.usage.oopUsed}
+              onChange={handleUsageChange('oopUsed')}
+            />
+          </label>
+        </div>
       </div>
     </div>
   );
