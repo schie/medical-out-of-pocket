@@ -1,13 +1,14 @@
-import { useCallback } from 'react';
+import { useCallback, type ReactNode } from 'react';
 import type { Insurance } from '../store';
 
 interface InsuranceCardProps {
   label: string;
   insurance: Insurance;
   onChange: (insurance: Insurance) => void;
+  cornerButton?: ReactNode;
 }
 
-export default function InsuranceCard({ label, insurance, onChange }: InsuranceCardProps) {
+export default function InsuranceCard({ label, insurance, onChange, cornerButton }: InsuranceCardProps) {
   const updateInsuranceField = (
     insurance: Insurance,
     field: keyof Insurance | keyof Insurance['usage'],
@@ -43,7 +44,8 @@ export default function InsuranceCard({ label, insurance, onChange }: InsuranceC
   );
 
   return (
-    <div className="card bg-base-200 shadow-xl p-4">
+    <div className="card bg-base-200 shadow-xl p-4 relative">
+      {cornerButton && <div className="absolute right-2 top-2">{cornerButton}</div>}
       <h2 className="card-title mb-4">
         <i aria-hidden="true" className="fa-solid fa-shield-halved mr-2" />
         {label}
