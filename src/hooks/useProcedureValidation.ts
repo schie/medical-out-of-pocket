@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 
 export default function useProcedureValidation(name: string, cost: string) {
   return useMemo(() => {
-    const parsedCost = parseFloat(cost);
-    const isInvalid = !name.trim() || isNaN(parsedCost) || parsedCost < 0;
+    const parsedCost = Number(cost);
+    const isInvalid = !name.trim() || isNaN(parsedCost) || cost.trim() === '' || parsedCost < 0;
     let errorMessage = '';
     if (!name.trim()) {
       errorMessage = 'Name is required';
