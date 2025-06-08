@@ -60,11 +60,13 @@ export default function ProceduresCard() {
         </button>
       </div>
       {errorMessage && <p className="text-error text-sm mb-4">{errorMessage}</p>}
-      <ul className="space-y-2">
-        {procedures.map((p) => (
-          <ProcedureItem key={p.id} procedure={p} />
-        ))}
-      </ul>
+      <div className="max-h-80 overflow-y-auto">
+        <ul className="space-y-2">
+          {procedures.map((p) => (
+            <ProcedureItem key={p.id} procedure={p} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
