@@ -80,7 +80,7 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
             onClick={saveEdit}
             disabled={isInvalid}
           >
-            <i className="fa-solid fa-floppy-disk mr-1" />Save
+            <i className="fa-solid fa-floppy-disk mr-1" aria-hidden="true" />Save
           </button>
           <button className="btn btn-ghost btn-sm" onClick={cancelEdit}>
             <i className="fa-solid fa-xmark mr-1" />Cancel
