@@ -38,28 +38,32 @@ export default function ProceduresCard() {
         <i aria-hidden="true" className="fa-solid fa-notes-medical mr-2" />
         Procedures
       </h2>
-      <div className="flex gap-2 mb-2 items-start">
+      <div className="join mb-2 items-start">
         <input
           type="text"
           placeholder="Name"
-          className="input input-bordered flex-1"
+          className="input input-bordered join-item flex-1"
           value={name}
           onChange={handleNameChange}
         />
-        <input
-          type="number"
-          placeholder="Cost"
-          className="input input-bordered w-24"
-          min="0"
-          value={cost}
-          onChange={handleCostChange}
-        />
-        <button className="btn btn-primary" onClick={handleAdd} disabled={isInvalid}>
+        <label className="input input-bordered validator join-item w-24">
+          <span>$</span>
+          <input
+            type="number"
+            placeholder="Cost"
+            className="grow"
+            min="0"
+            value={cost}
+            onChange={handleCostChange}
+            required
+          />
+        </label>
+        <button className="btn btn-primary join-item" onClick={handleAdd} disabled={isInvalid}>
           <i className="fa-solid fa-plus mr-1" aria-hidden="true" />
           Add
         </button>
       </div>
-      {errorMessage && <p className="text-error text-sm mb-4">{errorMessage}</p>}
+      {errorMessage && <div className="validator-hint text-error mb-4">{errorMessage}</div>}
       <div className="max-h-80 overflow-y-auto">
         <ul className="space-y-2">
           {procedures.map((p) => (

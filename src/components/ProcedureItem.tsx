@@ -56,31 +56,37 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
     <li className="flex items-center gap-2 text-left">
       {isEditing ? (
         <>
-          <input
-            type="text"
-            className="input input-bordered flex-1"
-            value={name}
-            onChange={handleNameChange}
-          />
-          <input
-            type="number"
-            className="input input-bordered w-24"
-            min="0"
-            value={cost}
-            onChange={handleCostChange}
-          />
+          <div className="join flex-1">
+            <input
+              type="text"
+              className="input input-bordered join-item flex-1"
+              value={name}
+              onChange={handleNameChange}
+            />
+            <label className="input input-bordered validator join-item w-24">
+              <span>$</span>
+              <input
+                type="number"
+                className="grow"
+                min="0"
+                value={cost}
+                onChange={handleCostChange}
+                required
+              />
+            </label>
+          </div>
           <button
-            className="btn btn-primary btn-sm"
+            className="btn btn-primary btn-sm join-item"
             onClick={saveEdit}
             disabled={isInvalid}
           >
             <i className="fa-solid fa-floppy-disk mr-1" aria-hidden="true" />Save
           </button>
-          <button className="btn btn-ghost btn-sm" onClick={cancelEdit}>
+          <button className="btn btn-ghost btn-sm join-item" onClick={cancelEdit}>
             <i className="fa-solid fa-xmark mr-1" aria-hidden="true" />Cancel
           </button>
           {errorMessage && (
-            <p className="text-error text-sm">{errorMessage}</p>
+            <div className="validator-hint text-error text-sm">{errorMessage}</div>
           )}
         </>
       ) : (
