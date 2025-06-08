@@ -53,7 +53,7 @@ export default function InsuranceCard({ label, insurance, onChange }: InsuranceC
           <i aria-hidden="true" className="fa-solid fa-id-card opacity-50" />
           <input
             type="text"
-            className="grow"
+            className="grow text-center"
             placeholder="Name"
             value={insurance.name}
             onChange={handleChange('name')}
@@ -63,7 +63,7 @@ export default function InsuranceCard({ label, insurance, onChange }: InsuranceC
           <span className="opacity-50">$</span>
           <input
             type="number"
-            className="grow"
+            className="grow text-center"
             placeholder="Deductible"
             min="0"
             value={insurance.deductible}
@@ -74,7 +74,7 @@ export default function InsuranceCard({ label, insurance, onChange }: InsuranceC
           <span className="opacity-50">$</span>
           <input
             type="number"
-            className="grow"
+            className="grow text-center"
             placeholder="Out-of-pocket Max"
             min="0"
             value={insurance.oopMax}
@@ -85,7 +85,7 @@ export default function InsuranceCard({ label, insurance, onChange }: InsuranceC
           <span className="opacity-50">$</span>
           <input
             type="number"
-            className="grow"
+            className="grow text-center"
             placeholder="Copay"
             min="0"
             value={insurance.copay}
@@ -96,7 +96,7 @@ export default function InsuranceCard({ label, insurance, onChange }: InsuranceC
           <span className="opacity-50">%</span>
           <input
             type="number"
-            className="grow"
+            className="grow text-center"
             placeholder="Coinsurance"
             step="0.01"
             min="0"
@@ -109,7 +109,7 @@ export default function InsuranceCard({ label, insurance, onChange }: InsuranceC
           <span className="opacity-50">$</span>
           <input
             type="number"
-            className="grow"
+            className="grow text-center"
             placeholder="Deductible Used"
             min="0"
             value={insurance.usage.deductibleUsed}
@@ -120,7 +120,7 @@ export default function InsuranceCard({ label, insurance, onChange }: InsuranceC
           <span className="opacity-50">$</span>
           <input
             type="number"
-            className="grow"
+            className="grow text-center"
             placeholder="OOP Used"
             min="0"
             value={insurance.usage.oopUsed}
