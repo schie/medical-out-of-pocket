@@ -46,7 +46,7 @@ jobs:
         run: npm run build
       - name: Setup Pages
         if: ${{ steps.release.outputs.release_created }}
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
       - name: Upload artifact
         if: ${{ steps.release.outputs.release_created }}
         uses: actions/upload-pages-artifact@v3
