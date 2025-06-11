@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.0](https://github.com/schie/medical-out-of-pocket/compare/v1.2.0...v1.3.0) (2025-06-11)
+
+
+### Features
+
+* add disclaimer footer ([cce8e4a](https://github.com/schie/medical-out-of-pocket/commit/cce8e4afec374d47cd9e0e6c348d643b49db5f17))
+* **components/insurancecard:** adding tool tips ([e874576](https://github.com/schie/medical-out-of-pocket/commit/e874576e97c09b05f56a1bfea55fe0a4808aa0d6))
+* remove insurance name usage ([5aff557](https://github.com/schie/medical-out-of-pocket/commit/5aff5574eaedf373b3d15efc152c87c2549cd86e))
+
 ## [1.2.0](https://github.com/schie/medical-out-of-pocket/compare/v1.1.1...v1.2.0) (2025-06-11)
 
 
