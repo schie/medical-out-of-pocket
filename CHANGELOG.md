@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.0](https://github.com/schie/medical-out-of-pocket/compare/v1.1.1...v1.2.0) (2025-06-11)
+
+
+### Features
+
+* add labels for insurance form inputs ([4c03489](https://github.com/schie/medical-out-of-pocket/commit/4c034892689d30c6bdd9690cc7e6a7f87bc7222a))
+* adding secondary insurance, cost breakdown ([6c99ad4](https://github.com/schie/medical-out-of-pocket/commit/6c99ad43e537fdd498224b6840d01dda805460d6))
+* **app:** arrange cards horizontally ([0ac4a88](https://github.com/schie/medical-out-of-pocket/commit/0ac4a88fe07ff66dac62888dcb24861b04a3f24c))
+* **ui:** adding corner buttons for managing secondary insurance ([e661771](https://github.com/schie/medical-out-of-pocket/commit/e6617717829dcb608068d8bc34726ec29e29a006))
+
+
+### Bug Fixes
+
+* ***.css:** removing all old styling ([63abb57](https://github.com/schie/medical-out-of-pocket/commit/63abb57b1bca33c6fa567d393c7300ed98baa35a))
+
 ## [1.1.1](https://github.com/schie/medical-out-of-pocket/compare/v1.1.0...v1.1.1) (2025-06-08)
 
 
