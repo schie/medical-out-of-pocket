@@ -7,7 +7,6 @@ export interface InsuranceUsage {
 }
 
 export interface Insurance {
-  name: string;
   deductible: number;
   oopMax: number;
   coInsurance: number;
@@ -21,7 +20,6 @@ interface InsuranceState {
 }
 
 const emptyInsurance: Insurance = {
-  name: '',
   deductible: 0,
   oopMax: 0,
   coInsurance: 0,
