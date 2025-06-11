@@ -39,7 +39,15 @@ export default function InsuranceCard({
       </h2>
       <div className="flex flex-col gap-4">
         <fieldset className="fieldset">
-          <legend className="fieldset-legend">Deductible</legend>
+          <legend className="fieldset-legend flex items-center gap-2">
+            Deductible
+            <div
+              className="tooltip tooltip-right"
+              data-tip="The amount you pay before insurance starts covering costs."
+            >
+              <i aria-hidden="true" className="fa-solid fa-circle-info text-info cursor-pointer" />
+            </div>
+          </legend>
           <label className="input input-bordered flex items-center gap-2 w-full">
             <span className="opacity-50">$</span>
             <input
@@ -53,7 +61,15 @@ export default function InsuranceCard({
         </fieldset>
 
         <fieldset className="fieldset">
-          <legend className="fieldset-legend">Copay</legend>
+          <legend className="fieldset-legend flex items-center gap-2">
+            Copay
+            <div
+              className="tooltip tooltip-right"
+              data-tip="A fixed amount you pay for a covered service."
+            >
+              <i aria-hidden="true" className="fa-solid fa-circle-info text-info cursor-pointer" />
+            </div>
+          </legend>
           <label className="input input-bordered flex items-center gap-2 w-full">
             <span className="opacity-50">$</span>
             <input
@@ -66,7 +82,15 @@ export default function InsuranceCard({
           </label>
         </fieldset>
         <fieldset className="fieldset">
-          <legend className="fieldset-legend">Coinsurance</legend>
+          <legend className="fieldset-legend flex items-center gap-2">
+            Coinsurance
+            <div
+              className="tooltip tooltip-right"
+              data-tip="The percentage of costs you pay after meeting your deductible."
+            >
+              <i aria-hidden="true" className="fa-solid fa-circle-info text-info cursor-pointer" />
+            </div>
+          </legend>
           <label className="input input-bordered flex items-center gap-2 w-full">
             <span className="opacity-50">%</span>
             <input
@@ -83,7 +107,18 @@ export default function InsuranceCard({
 
         <div className="flex flex-row gap-4">
           <fieldset className="fieldset flex-1">
-            <legend className="fieldset-legend">Out-of-pocket Max</legend>
+            <legend className="fieldset-legend flex items-center gap-2">
+              Out-of-pocket Max
+              <div
+                className="tooltip tooltip-right"
+                data-tip="The most you have to pay for covered services in a plan year."
+              >
+                <i
+                  aria-hidden="true"
+                  className="fa-solid fa-circle-info text-info cursor-pointer"
+                />
+              </div>
+            </legend>
             <label className="input input-bordered flex items-center gap-2 w-full">
               <span className="opacity-50">$</span>
               <input
@@ -96,7 +131,18 @@ export default function InsuranceCard({
             </label>
           </fieldset>
           <fieldset className="fieldset flex-1">
-            <legend className="fieldset-legend">OOP Used</legend>
+            <legend className="fieldset-legend flex items-center gap-2">
+              OOP Used
+              <div
+                className="tooltip tooltip-right"
+                data-tip="How much of your out-of-pocket max you've already paid this year."
+              >
+                <i
+                  aria-hidden="true"
+                  className="fa-solid fa-circle-info text-info cursor-pointer"
+                />
+              </div>
+            </legend>
             <label className="input input-bordered flex items-center gap-2 w-full">
               <span className="opacity-50">$</span>
               <input
