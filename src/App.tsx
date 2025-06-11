@@ -92,6 +92,9 @@ function App() {
         </div>
       </div>
       {secondary && <ResponsibilityBreakdown />}
+      <footer className="text-center text-xs opacity-70 mt-4">
+        This is purely an estimate and calculations could be incorrect.
+      </footer>
     </div>
   );
 }
