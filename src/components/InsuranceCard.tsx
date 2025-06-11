@@ -17,14 +17,14 @@ export default function InsuranceCard({
   const updateInsuranceField = (
     insurance: Insurance,
     field: keyof Insurance,
-    value: string | number
+    value: number
   ): Insurance => {
     return { ...insurance, [field]: value };
   };
 
   const handleChange = useCallback(
     (field: keyof Insurance) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = field === 'name' ? e.target.value : Number(e.target.value);
+      const value = Number(e.target.value);
       onChange(updateInsuranceField(insurance, field, value));
     },
     [insurance, onChange]
@@ -38,18 +38,6 @@ export default function InsuranceCard({
         {label}
       </h2>
       <div className="flex flex-col gap-4">
-        <fieldset className="fieldset">
-          <legend className="fieldset-legend">Name</legend>
-          <label className="input input-bordered flex items-center gap-2 w-full">
-            <i aria-hidden="true" className="fa-solid fa-id-card opacity-50" />
-            <input
-              type="text"
-              className="grow"
-              value={insurance.name}
-              onChange={handleChange('name')}
-            />
-          </label>
-        </fieldset>
         <fieldset className="fieldset">
           <legend className="fieldset-legend">Deductible</legend>
           <label className="input input-bordered flex items-center gap-2 w-full">

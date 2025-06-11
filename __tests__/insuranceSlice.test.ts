@@ -10,7 +10,6 @@ import reducer, {
 } from '../src/store/insuranceSlice';
 
 const sampleIns = {
-  name: 'A',
   deductible: 1000,
   oopMax: 5000,
   coInsurance: 0.2,
@@ -20,7 +19,7 @@ const sampleIns = {
 
 test('setPrimaryInsurance replaces primary', () => {
   const state = reducer(undefined, setPrimaryInsurance(sampleIns));
-  assert.equal(state.primary.name, 'A');
+  assert.equal(state.primary.oopMax, 5000);
 });
 
 test('updatePrimaryOOPUsage merges usage', () => {
@@ -45,15 +44,15 @@ test('clearSecondaryInsurance removes secondary', () => {
 
 test('swapInsurances swaps when secondary exists', () => {
   const state = reducer(
-    { primary: { ...sampleIns, name: 'P' }, secondary: { ...sampleIns, name: 'S' } },
+    { primary: sampleIns, secondary: { ...sampleIns, copay: 10 } },
     swapInsurances()
   );
-  assert.equal(state.primary.name, 'S');
-  assert.equal(state.secondary!.name, 'P');
+  assert.strictEqual(state.primary.copay, 10);
+  assert.strictEqual(state.secondary!.copay, 50);
 });
 
 test('swapInsurances does nothing without secondary', () => {
   const state = reducer({ primary: sampleIns }, swapInsurances());
-  assert.equal(state.primary.name, 'A');
+  assert.strictEqual(state.primary.oopMax, 5000);
   assert.equal(state.secondary, undefined);
 });
