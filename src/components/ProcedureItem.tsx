@@ -95,13 +95,11 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
           <span className="flex-1">
             {procedure.name} - ${procedure.cost.toFixed(2)}
           </span>
-          <button className="btn btn-sm" onClick={startEdit}>
-            <i className="fa-solid fa-pen mr-1" aria-hidden="true" />
-            Edit
+          <button className="btn btn-xs" onClick={startEdit}>
+            <i className="fa-solid fa-pen" aria-hidden="true" />
           </button>
-          <button className="btn btn-error btn-sm" onClick={remove}>
-            <i className="fa-solid fa-trash mr-1" aria-hidden="true" />
-            Remove
+          <button className="btn btn-error btn-xs" onClick={remove}>
+            <i className="fa-solid fa-trash" aria-hidden="true" />
           </button>
         </>
       )}
