@@ -14,7 +14,7 @@ export interface Insurance {
   oopUsed?: number;
 }
 
-interface InsuranceState {
+export interface InsuranceState {
   primary: Insurance;
   secondary?: Insurance;
 }
@@ -59,6 +59,9 @@ const insuranceSlice = createSlice({
         state.secondary = temp;
       }
     },
+    setInsuranceState: (state, action: PayloadAction<InsuranceState>) => {
+      return action.payload;
+    },
   },
 });
 
@@ -69,6 +72,7 @@ export const {
   updateSecondaryOOPUsage,
   clearSecondaryInsurance,
   swapInsurances,
+  setInsuranceState,
 } = insuranceSlice.actions;
 
 export default insuranceSlice.reducer;

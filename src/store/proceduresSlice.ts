@@ -10,7 +10,7 @@ export interface Procedure {
 export type ProcedureCreate = Omit<Procedure, 'id'>;
 export type ProcedureUpdate = Partial<Procedure> & { id: string };
 
-interface ProceduresState {
+export interface ProceduresState {
   list: Procedure[];
   selectedIds: { [id: string]: boolean };
 }
@@ -61,6 +61,10 @@ const proceduresSlice = createSlice({
         state.selectedIds = Object.fromEntries(state.list.map((p) => [p.id, true]));
       }
     },
+    setProcedures: (state, action: PayloadAction<ProcedureCreate[]>) => {
+      state.list = action.payload.map((p) => ({ ...p, id: crypto.randomUUID() }));
+      state.selectedIds = Object.fromEntries(state.list.map((p) => [p.id, true]));
+    },
   },
 });
 
@@ -70,6 +74,7 @@ export const {
   removeProcedure,
   toggleProcedure,
   toggleAllProcedures,
+  setProcedures,
 } = proceduresSlice.actions;
 
 export default proceduresSlice.reducer;
