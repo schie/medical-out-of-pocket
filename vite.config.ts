@@ -6,4 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   base: '/medical-out-of-pocket/',
   plugins: [react(), tailwindcss()],
+  define: {
+    __VERSION__: JSON.stringify(process.env.npm_package_version),
+  },
 });
