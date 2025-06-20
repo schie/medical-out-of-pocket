@@ -11,6 +11,8 @@ import {
 } from './store/insuranceSlice';
 import { ResponsibilityBreakdown } from './components/ResponsibilityBreakdown';
 
+const version = __VERSION__;
+
 const emptyInsurance: Insurance = {
   deductible: 0,
   oopMax: 0,
@@ -93,7 +95,8 @@ function App() {
       </div>
       {secondary && <ResponsibilityBreakdown />}
       <footer className="text-center text-xs opacity-70 mt-4">
-        This is purely an estimate and calculations could be incorrect.
+        <p>This is purely an estimate and calculations could be incorrect.</p>
+        <p className="mt-1">v{version}</p>
       </footer>
     </div>
   );
