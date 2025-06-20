@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/schie/medical-out-of-pocket/compare/v1.3.0...v1.3.1) (2025-06-20)
+
+
+### Bug Fixes
+
+* extract Field component; fix form bug ([a5974e1](https://github.com/schie/medical-out-of-pocket/commit/a5974e1d250834d8e9df1fd243cf61fc3631340e))
+
 ## [1.3.0](https://github.com/schie/medical-out-of-pocket/compare/v1.2.0...v1.3.0) (2025-06-11)
 
 
