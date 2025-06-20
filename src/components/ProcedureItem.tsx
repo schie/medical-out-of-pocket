@@ -92,9 +92,8 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
             checked={procedure.selected}
             onClick={handleToggle}
           />
-          <span className="flex-1">
-            {procedure.name} - ${procedure.cost.toFixed(2)}
-          </span>
+          <span className="flex-1/2">{procedure.name}</span>
+          <span className="flex-1/6">${procedure.cost.toFixed(2)}</span>
           <button className="btn btn-xs" onClick={startEdit}>
             <i className="fa-solid fa-pen" aria-hidden="true" />
           </button>
