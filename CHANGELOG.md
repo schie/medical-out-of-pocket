@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/schie/medical-out-of-pocket/compare/v1.3.1...v1.4.0) (2025-06-20)
+
+
+### Features
+
+* **ccomponents/procedurescard:** adding cpt-code search ([01b8fc1](https://github.com/schie/medical-out-of-pocket/commit/01b8fc1faaa2ded21a573502a6d3b5deb21f85c6))
+* preseting version ([#38](https://github.com/schie/medical-out-of-pocket/issues/38)) ([6a3961d](https://github.com/schie/medical-out-of-pocket/commit/6a3961d6086aecd4154cffeeb40aa50ed89d3c97))
+
 ## [1.3.1](https://github.com/schie/medical-out-of-pocket/compare/v1.3.0...v1.3.1) (2025-06-20)
 
 
