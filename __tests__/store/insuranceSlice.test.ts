@@ -1,0 +1,107 @@
+import reducer, {
+  setPrimaryInsurance,
+  updatePrimaryOOPUsage,
+  setSecondaryInsurance,
+  updateSecondaryOOPUsage,
+  clearSecondaryInsurance,
+  swapInsurances,
+} from '../../src/store/insuranceSlice';
+
+const sampleIns = {
+  deductible: 1000,
+  oopMax: 5000,
+  coInsurance: 0.2,
+  copay: 50,
+  oopUsed: 0,
+};
+
+describe('insuranceSlice reducer', () => {
+  describe('setPrimaryInsurance', () => {
+    it('replaces primary', () => {
+      const state = reducer(undefined, setPrimaryInsurance(sampleIns));
+      expect(state.primary.oopMax).toBe(5000);
+    });
+
+    it('works with undefined initial state', () => {
+      const state = reducer(undefined, setPrimaryInsurance({ ...sampleIns, oopUsed: 123 }));
+      expect(state.primary.oopUsed).toBe(123);
+    });
+  });
+
+  describe('updatePrimaryOOPUsage', () => {
+    it('merges usage', () => {
+      const state = reducer({ primary: sampleIns }, updatePrimaryOOPUsage(200));
+      expect(state.primary.oopUsed).toBe(200);
+    });
+
+    it('does not affect other fields', () => {
+      const state = reducer({ primary: { ...sampleIns, oopUsed: 10 } }, updatePrimaryOOPUsage(99));
+      expect(state.primary.oopUsed).toBe(99);
+      expect(state.primary.deductible).toBe(1000);
+    });
+  });
+
+  describe('setSecondaryInsurance', () => {
+    it('sets secondary', () => {
+      const state = reducer({ primary: sampleIns }, setSecondaryInsurance(sampleIns));
+      expect(state.secondary).toBeDefined();
+    });
+  });
+
+  describe('updateSecondaryOOPUsage', () => {
+    it('updates when secondary exists', () => {
+      const state = reducer(
+        { primary: sampleIns, secondary: sampleIns },
+        updateSecondaryOOPUsage(100)
+      );
+      expect(state.secondary!.oopUsed).toBe(100);
+    });
+
+    it('does nothing if secondary is undefined', () => {
+      const state = reducer({ primary: sampleIns }, updateSecondaryOOPUsage(123));
+      expect(state.secondary).toBeUndefined();
+    });
+  });
+
+  describe('clearSecondaryInsurance', () => {
+    it('removes secondary', () => {
+      const state = reducer(
+        { primary: sampleIns, secondary: sampleIns },
+        clearSecondaryInsurance()
+      );
+      expect(state.secondary).toBeUndefined();
+    });
+
+    it('does nothing if secondary is already undefined', () => {
+      const state = reducer({ primary: sampleIns }, clearSecondaryInsurance());
+      expect(state.secondary).toBeUndefined();
+    });
+  });
+
+  describe('swapInsurances', () => {
+    it('swaps when secondary exists', () => {
+      const state = reducer(
+        { primary: sampleIns, secondary: { ...sampleIns, copay: 10 } },
+        swapInsurances()
+      );
+      expect(state.primary.copay).toBe(10);
+      expect(state.secondary!.copay).toBe(50);
+    });
+
+    it('does nothing without secondary', () => {
+      const state = reducer({ primary: sampleIns }, swapInsurances());
+      expect(state.primary.oopMax).toBe(5000);
+      expect(state.secondary).toBeUndefined();
+    });
+
+    it('swaps all fields between primary and secondary', () => {
+      const primary = { ...sampleIns, deductible: 111, oopUsed: 1 };
+      const secondary = { ...sampleIns, deductible: 222, oopUsed: 2 };
+      const state = reducer({ primary, secondary }, swapInsurances());
+      expect(state.primary.deductible).toBe(222);
+      expect(state.primary.oopUsed).toBe(2);
+      expect(state.secondary!.deductible).toBe(111);
+      expect(state.secondary!.oopUsed).toBe(1);
+    });
+  });
+});
