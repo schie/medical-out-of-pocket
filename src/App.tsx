@@ -50,6 +50,10 @@ function App() {
 
   return (
     <div className="flex flex-col w-full gap-4 p-4">
+      <header className="mb-4 text-center">
+        <h1 className="text-3xl font-bold">MOOP</h1>
+        <h2 className="text-lg mt-1">a Medical Out-of-Pocket Expense Calculator</h2>
+      </header>
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1 flex flex-col">
           <ProceduresCard />
