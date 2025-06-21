@@ -1,11 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-export interface InsuranceUsage {
-  deductibleUsed: number;
-  oopUsed: number;
-}
-
 export interface Insurance {
   deductible: number;
   oopMax: number;
@@ -38,16 +33,8 @@ const insuranceSlice = createSlice({
     setPrimaryInsurance: (state, action: PayloadAction<Insurance>) => {
       state.primary = action.payload;
     },
-    updatePrimaryOOPUsage: (state, action: PayloadAction<number>) => {
-      state.primary.oopUsed = action.payload;
-    },
     setSecondaryInsurance: (state, action: PayloadAction<Insurance>) => {
       state.secondary = action.payload;
-    },
-    updateSecondaryOOPUsage: (state, action: PayloadAction<number>) => {
-      if (state.secondary) {
-        state.secondary.oopUsed = action.payload;
-      }
     },
     clearSecondaryInsurance: (state) => {
       state.secondary = undefined;
@@ -64,9 +51,7 @@ const insuranceSlice = createSlice({
 
 export const {
   setPrimaryInsurance,
-  updatePrimaryOOPUsage,
   setSecondaryInsurance,
-  updateSecondaryOOPUsage,
   clearSecondaryInsurance,
   swapInsurances,
 } = insuranceSlice.actions;
