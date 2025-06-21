@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.5.0](https://github.com/schie/medical-out-of-pocket/compare/v1.4.0...v1.5.0) (2025-06-21)
+
+
+### Features
+
+* add application header ([41ec36c](https://github.com/schie/medical-out-of-pocket/commit/41ec36c300ee09c6101ff4d389f8beb924eced73))
+* **app:** update disclaimer footer with negotiated rates note ([4dd42bc](https://github.com/schie/medical-out-of-pocket/commit/4dd42bcdeed5458d659da1e171881dd63604d4e6))
+* **procedures:** add ability to remove all ([11d3084](https://github.com/schie/medical-out-of-pocket/commit/11d3084e9fb07b8a2124647dcf0ba46663cbaabc))
+
+
+### Bug Fixes
+
+* **stores/selectors:** fixing floating point precision issues ([e2b80d4](https://github.com/schie/medical-out-of-pocket/commit/e2b80d400ea9319f274acd0ba64c63e3f225c4cb))
+
 ## [1.4.0](https://github.com/schie/medical-out-of-pocket/compare/v1.3.1...v1.4.0) (2025-06-20)
 
 
