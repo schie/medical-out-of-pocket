@@ -16,6 +16,7 @@
     "@tailwindcss/vite": "^4.1.8",
     "daisyui": "^5.0.43",
     "fuse.js": "^7.1.0",
+    "mathjs": "^14.5.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
