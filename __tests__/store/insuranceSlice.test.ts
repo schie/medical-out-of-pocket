@@ -3,10 +3,12 @@ import reducer, {
   setSecondaryInsurance,
   clearSecondaryInsurance,
   swapInsurances,
+  Insurance,
 } from '../../src/store/insuranceSlice';
 
-const sampleIns = {
+const sampleIns: Insurance = {
   deductible: 1000,
+  deductibleUsed: 0,
   oopMax: 5000,
   coInsurance: 0.2,
   copay: 50,

@@ -3,6 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface Insurance {
   deductible: number;
+  deductibleUsed: number;
   oopMax: number;
   coInsurance: number;
   copay: number;
@@ -16,6 +17,7 @@ interface InsuranceState {
 
 const emptyInsurance: Insurance = {
   deductible: 0,
+  deductibleUsed: 0,
   oopMax: 0,
   coInsurance: 0,
   copay: 0,
