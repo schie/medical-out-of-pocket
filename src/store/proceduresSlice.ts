@@ -44,6 +44,10 @@ const proceduresSlice = createSlice({
       state.list = state.list.filter((p) => p.id !== action.payload);
       delete state.selectedIds[action.payload]; // Remove from selectedIds
     },
+    removeAllProcedures: (state) => {
+      state.list = [];
+      state.selectedIds = {};
+    },
     toggleProcedure: (state, action: PayloadAction<string>) => {
       const id = action.payload;
       if (state.selectedIds[id]) {
@@ -68,6 +72,7 @@ export const {
   addProcedure,
   updateProcedure,
   removeProcedure,
+  removeAllProcedures,
   toggleProcedure,
   toggleAllProcedures,
 } = proceduresSlice.actions;
