@@ -1,6 +1,7 @@
 import proceduresReducer, {
   addProcedure,
   removeProcedure,
+  removeAllProcedures,
   toggleProcedure,
   toggleAllProcedures,
 } from '../../src/store/proceduresSlice';
@@ -125,6 +126,30 @@ describe('proceduresSlice', () => {
       const nextState = proceduresReducer(prevState, action);
       expect(nextState.list.length).toBe(1);
       expect(nextState.selectedIds['1']).toBe(true);
+    });
+  });
+
+  describe('removeAllProcedures', () => {
+    it('should remove all procedures and clear selectedIds', () => {
+      const prevState = {
+        list: [
+          { id: '1', name: 'A', cost: 10 },
+          { id: '2', name: 'B', cost: 20 },
+        ],
+        selectedIds: { '1': true, '2': true },
+      };
+      const action = removeAllProcedures();
+      const nextState = proceduresReducer(prevState, action);
+      expect(nextState.list.length).toBe(0);
+      expect(nextState.selectedIds).toEqual({});
+    });
+
+    it('should not fail when list is already empty', () => {
+      const prevState = { list: [], selectedIds: {} as Record<string, boolean> };
+      const action = removeAllProcedures();
+      const nextState = proceduresReducer(prevState, action);
+      expect(nextState.list.length).toBe(0);
+      expect(nextState.selectedIds).toEqual({});
     });
   });
 
