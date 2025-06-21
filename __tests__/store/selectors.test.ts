@@ -1,4 +1,4 @@
-import type { RootState } from '../../src/store';
+import type { Insurance, RootState } from '../../src/store';
 import {
   patientResponsibilityAfterPrimary,
   selectProcedures,
@@ -28,6 +28,7 @@ describe('selectors', () => {
         insurance: {
           primary: {
             deductible: 0,
+            deductibleUsed: 0,
             copay: 0,
             coInsurance: 0,
             oopMax: 0,
@@ -63,6 +64,7 @@ describe('selectors', () => {
         insurance: {
           primary: {
             deductible: 0,
+            deductibleUsed: 0,
             copay: 0,
             coInsurance: 0,
             oopMax: 0,
@@ -82,6 +84,7 @@ describe('selectors', () => {
         insurance: {
           primary: {
             deductible: 0,
+            deductibleUsed: 0,
             copay: 0,
             coInsurance: 0,
             oopMax: 0,
@@ -100,6 +103,7 @@ describe('selectors', () => {
         insurance: {
           primary: {
             deductible: 0,
+            deductibleUsed: 0,
             copay: 0,
             coInsurance: 0,
             oopMax: 0,
@@ -123,6 +127,7 @@ describe('selectors', () => {
         insurance: {
           primary: {
             deductible: 0,
+            deductibleUsed: 0,
             copay: 0,
             coInsurance: 0,
             oopMax: 0,
@@ -145,6 +150,7 @@ describe('selectors', () => {
         insurance: {
           primary: {
             deductible: 0,
+            deductibleUsed: 0,
             copay: 0,
             coInsurance: 0,
             oopMax: 0,
@@ -168,6 +174,7 @@ describe('selectors', () => {
         insurance: {
           primary: {
             deductible: 0,
+            deductibleUsed: 0,
             copay: 0,
             coInsurance: 0,
             oopMax: 0,
@@ -183,6 +190,7 @@ describe('selectors', () => {
         insurance: {
           primary: {
             deductible: 0,
+            deductibleUsed: 0,
             copay: 0,
             coInsurance: 0,
             oopMax: 0,
@@ -215,8 +223,9 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const insurance = {
+      const insurance: Insurance = {
         deductible: 500,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 20,
         oopMax: 1000,
@@ -234,8 +243,9 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const insurance = {
+      const insurance: Insurance = {
         deductible: 200,
+        deductibleUsed: 0,
         copay: 30,
         coInsurance: 50,
         oopMax: 1000,
@@ -250,8 +260,9 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 300 }],
         selectedIds: { '1': true },
       };
-      const insurance = {
+      const insurance: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 50,
         oopMax: 1000,
@@ -265,8 +276,9 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 2000 }],
         selectedIds: { '1': true },
       };
-      const insurance = {
+      const insurance: Insurance = {
         deductible: 500,
+        deductibleUsed: 0,
         copay: 100,
         coInsurance: 50,
         oopMax: 600,
@@ -280,8 +292,9 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 2000 }],
         selectedIds: { '1': true },
       };
-      const insurance = {
+      const insurance: Insurance = {
         deductible: 500,
+        deductibleUsed: 0,
         copay: 100,
         coInsurance: 50,
         oopMax: 1000,
@@ -295,8 +308,9 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 300 }],
         selectedIds: { '1': true },
       };
-      const insurance = {
+      const insurance: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 0,
         coInsurance: 0,
         oopMax: 1000,
@@ -310,8 +324,9 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 1000 }],
         selectedIds: { '1': true },
       };
-      const insurance = {
+      const insurance: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 500,
@@ -340,15 +355,17 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 200,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 20,
         oopMax: 1000,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 500,
@@ -367,8 +384,9 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 10,
         coInsurance: 10,
         oopMax: 1000,
@@ -385,8 +403,9 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 1000,
@@ -403,15 +422,17 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 2000 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 500,
+        deductibleUsed: 0,
         copay: 100,
         coInsurance: 50,
         oopMax: 2000,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 50,
         oopMax: 100,
@@ -427,15 +448,17 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 1000 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 500,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 200,
@@ -451,15 +474,17 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 300 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 0,
         coInsurance: 0,
         oopMax: 1000,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 0,
         coInsurance: 0,
         oopMax: 1000,
@@ -475,15 +500,17 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 1000 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 500,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 200,
@@ -512,15 +539,17 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 200,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 20,
         oopMax: 1000,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 500,
@@ -539,15 +568,17 @@ describe('selectors', () => {
         ],
         selectedIds: {},
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 1000,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 10,
         coInsurance: 10,
         oopMax: 500,
@@ -561,15 +592,17 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 100 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 0,
         coInsurance: 0,
         oopMax: 100,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 200,
+        deductibleUsed: 0,
         copay: 0,
         coInsurance: 0,
         oopMax: 200,
@@ -583,15 +616,17 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 1000 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 500,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 200,
@@ -609,15 +644,17 @@ describe('selectors', () => {
         ],
         selectedIds: {},
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 1000,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 10,
         coInsurance: 10,
         oopMax: 500,
@@ -643,8 +680,9 @@ describe('selectors', () => {
         ],
         selectedIds: {},
       };
-      const insurance = {
+      const insurance: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 1000,
@@ -662,9 +700,10 @@ describe('selectors', () => {
         selectedIds: { '1': true, '2': true },
       };
 
-      const insurance = {
+      const insurance: RootState['insurance'] = {
         primary: {
           deductible: 300,
+          deductibleUsed: 0,
           copay: 0,
           coInsurance: 0,
           oopMax: 1000,
@@ -683,8 +722,9 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 200,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 20,
         oopMax: 1000,
@@ -704,8 +744,9 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 100 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 200,
+        deductibleUsed: 0,
         copay: 0,
         coInsurance: 0,
         oopMax: 100,
@@ -719,8 +760,9 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 1000 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 500,
@@ -750,15 +792,17 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 200,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 20,
         oopMax: 1000,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 500,
@@ -777,15 +821,17 @@ describe('selectors', () => {
         ],
         selectedIds: {},
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 1000,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 10,
         coInsurance: 10,
         oopMax: 500,
@@ -804,8 +850,9 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 1000,
@@ -821,15 +868,17 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 1000 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 500,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 200,
@@ -848,15 +897,17 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 200,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 20,
         oopMax: 1000,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 500,
@@ -876,15 +927,17 @@ describe('selectors', () => {
         ],
         selectedIds: {},
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 1000,
         oopUsed: 0,
       };
-      const secondary = {
+      const secondary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 10,
         coInsurance: 10,
         oopMax: 500,
@@ -904,8 +957,9 @@ describe('selectors', () => {
         ],
         selectedIds: { '1': true, '2': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 50,
+        deductibleUsed: 0,
         copay: 20,
         coInsurance: 10,
         oopMax: 1000,
@@ -929,8 +983,9 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 1000 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 100,
+        deductibleUsed: 0,
         copay: 50,
         coInsurance: 10,
         oopMax: 500,
@@ -950,8 +1005,9 @@ describe('selectors', () => {
         list: [{ id: '1', name: 'A', cost: 100 }],
         selectedIds: { '1': true },
       };
-      const primary = {
+      const primary: Insurance = {
         deductible: 200,
+        deductibleUsed: 0,
         copay: 0,
         coInsurance: 0,
         oopMax: 100,

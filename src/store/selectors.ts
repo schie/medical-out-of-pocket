@@ -35,11 +35,12 @@ const _calculatePatientResponsibility = (
     return totalCost;
   }
 
-  const { deductible, oopMax, oopUsed, copay, coInsurance } = insurance;
+  const { deductible, oopMax, oopUsed, copay, coInsurance, deductibleUsed } = insurance;
 
   const remainingOop = mathjs.max(mathjs.subtract(oopMax, oopUsed ?? 0), 0);
 
-  const remainingDeductible = deductible;
+  // just handling the case deductible used is nil
+  const remainingDeductible = mathjs.max(mathjs.subtract(deductible, deductibleUsed ?? 0), 0);
 
   let patientCost = 0;
   let remainingCost = totalCost;
