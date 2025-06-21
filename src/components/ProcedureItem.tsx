@@ -90,7 +90,7 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
             type="checkbox"
             className="checkbox"
             checked={procedure.selected}
-            onClick={handleToggle}
+            onChange={handleToggle}
           />
           <span className="flex-1/2">{procedure.name}</span>
           <span className="flex-1/6">${procedure.cost.toFixed(2)}</span>
