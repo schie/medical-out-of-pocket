@@ -34,4 +34,5 @@ export * from './selectors';
 
 export type AppDispatch = typeof store.dispatch;
 export type { Procedure, ProcedureCreate, ProcedureUpdate } from './proceduresSlice';
-export type { Insurance, InsuranceUsage } from './insuranceSlice';
+export type { Insurance, InsuranceUsage, InsuranceState } from './insuranceSlice';
+export type { ProceduresState } from './proceduresSlice';
