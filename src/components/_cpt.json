@@ -32012,6 +32012,30 @@
     "label": "Group therapeutic procedures"
   },
   {
+    "code": "97151",
+    "label": "Behavior identification assessment"
+  },
+  {
+    "code": "97152",
+    "label": "Adaptive behavior assessment procedures"
+  },
+  {
+    "code": "97153",
+    "label": "Adaptive behavior treatment procedures"
+  },
+  {
+    "code": "97154",
+    "label": "Adaptive behavior treatment with protocol modification, group therapy"
+  },
+  {
+    "code": "97155",
+    "label": "Adaptive behavior treatment with protocol modification"
+  },
+  {
+    "code": "97156",
+    "label": "Family adaptive behavior treatment guidance"
+  },
+  {
     "code": "97504",
     "label": "Orthotic training"
   },
