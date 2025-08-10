@@ -15,6 +15,7 @@ const version = __VERSION__;
 
 const emptyInsurance: Insurance = {
   deductible: 0,
+  deductibleUsed: 0,
   oopMax: 0,
   coInsurance: 0,
   copay: 0,
