@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.6.0](https://github.com/schie/medical-out-of-pocket/compare/v1.5.0...v1.6.0) (2025-08-10)
+
+
+### Features
+
+* **components:** integrating deductible usage ([87bf5c9](https://github.com/schie/medical-out-of-pocket/commit/87bf5c91cad42a530eb42eb51e68619d3cee102c))
+* **store:** adding `InsuranceState.deductibleUsed` ([d85e3fa](https://github.com/schie/medical-out-of-pocket/commit/d85e3fa06288df601f2d7aec2935ff107d49f285))
+* **ui:** add empty procedures state message ([f083133](https://github.com/schie/medical-out-of-pocket/commit/f0831335c032b4cde721d15acb5d66b0c0cafa59))
+
+
+### Reverts
+
+* **store:** removing `updatePrimaryOOPUsage` and `updateSecondaryOOPUsage` ([ef084b7](https://github.com/schie/medical-out-of-pocket/commit/ef084b752e4aa9c1fb6a3d9c49e0cd8b3d0c88d9))
+
 ## [1.5.0](https://github.com/schie/medical-out-of-pocket/compare/v1.4.0...v1.5.0) (2025-06-21)
 
 
