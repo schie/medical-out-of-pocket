@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/schie/medical-out-of-pocket/compare/v1.6.0...v1.7.0) (2025-08-10)
+
+
+### Features
+
+* add ABA CPT codes ([617484e](https://github.com/schie/medical-out-of-pocket/commit/617484e1bf1470ba88c358ed98f52b7242f7416b))
+
 ## [1.6.0](https://github.com/schie/medical-out-of-pocket/compare/v1.5.0...v1.6.0) (2025-08-10)
 
 
