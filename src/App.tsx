@@ -101,7 +101,9 @@ function App() {
       <footer className="text-center text-xs opacity-70 mt-4">
         <p>
           This is purely an estimate and calculations could be incorrect. Costs
-          may differ by practice or facility due to negotiated rates.
+          may differ by practice or facility due to negotiated rates. Consult
+          your provider or insurance company for official cost information. This
+          tool is not medical or financial advice.
         </p>
         <p className="mt-1">v{version}</p>
       </footer>
