@@ -3,7 +3,9 @@ import reducer, {
   updatePrimaryOOPUsage,
   setSecondaryInsurance,
   updateSecondaryOOPUsage,
+  clearPrimaryInsurance,
   clearSecondaryInsurance,
+  emptyInsurance,
   swapInsurances,
 } from '../../src/store/insuranceSlice';
 
@@ -75,6 +77,22 @@ describe('insuranceSlice reducer', () => {
     it('does nothing if secondary is already undefined', () => {
       const state = reducer({ primary: sampleIns }, clearSecondaryInsurance());
       expect(state.secondary).toBeUndefined();
+    });
+  });
+
+  describe('clearPrimaryInsurance', () => {
+    it('resets primary to empty values', () => {
+      const state = reducer({ primary: sampleIns }, clearPrimaryInsurance());
+      expect(state.primary).toEqual(emptyInsurance);
+    });
+
+    it('does not affect secondary', () => {
+      const secondary = { ...sampleIns, deductible: 123 };
+      const state = reducer(
+        { primary: sampleIns, secondary },
+        clearPrimaryInsurance()
+      );
+      expect(state.secondary).toEqual(secondary);
     });
   });
 

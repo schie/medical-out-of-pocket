@@ -19,7 +19,7 @@ interface InsuranceState {
   secondary?: Insurance;
 }
 
-const emptyInsurance: Insurance = {
+export const emptyInsurance: Insurance = {
   deductible: 0,
   oopMax: 0,
   coInsurance: 0,
@@ -49,6 +49,9 @@ const insuranceSlice = createSlice({
         state.secondary.oopUsed = action.payload;
       }
     },
+    clearPrimaryInsurance: (state) => {
+      state.primary = emptyInsurance;
+    },
     clearSecondaryInsurance: (state) => {
       state.secondary = undefined;
     },
@@ -67,6 +70,7 @@ export const {
   updatePrimaryOOPUsage,
   setSecondaryInsurance,
   updateSecondaryOOPUsage,
+  clearPrimaryInsurance,
   clearSecondaryInsurance,
   swapInsurances,
 } = insuranceSlice.actions;

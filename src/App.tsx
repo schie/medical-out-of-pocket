@@ -7,19 +7,13 @@ import { type AppDispatch, type RootState, type Insurance } from './store';
 import {
   setPrimaryInsurance,
   setSecondaryInsurance,
+  clearPrimaryInsurance,
   clearSecondaryInsurance,
+  emptyInsurance,
 } from './store/insuranceSlice';
 import { ResponsibilityBreakdown } from './components/ResponsibilityBreakdown';
 
 const version = __VERSION__;
-
-const emptyInsurance: Insurance = {
-  deductible: 0,
-  oopMax: 0,
-  coInsurance: 0,
-  copay: 0,
-  oopUsed: 0,
-};
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -44,6 +38,10 @@ function App() {
     }
   }, [dispatch, secondary]);
 
+  const clearPrimary = useCallback(() => {
+    dispatch(clearPrimaryInsurance());
+  }, [dispatch]);
+
   const removeSecondary = useCallback(() => {
     dispatch(clearSecondaryInsurance());
   }, [dispatch]);
@@ -64,15 +62,24 @@ function App() {
             insurance={primary}
             onChange={handlePrimaryChange}
             cornerButton={
-              !secondary && (
+              <div className="flex gap-1">
                 <button
-                  className="btn btn-circle btn-xs btn-primary"
-                  onClick={addSecondary}
-                  aria-label="Add Secondary Insurance"
+                  className="btn btn-circle btn-xs btn-warning"
+                  onClick={clearPrimary}
+                  aria-label="Clear Primary Insurance"
                 >
-                  <i className="fa-solid fa-plus" aria-hidden="true" />
+                  <i className="fa-solid fa-broom" aria-hidden="true" />
                 </button>
-              )
+                {!secondary && (
+                  <button
+                    className="btn btn-circle btn-xs btn-primary"
+                    onClick={addSecondary}
+                    aria-label="Add Secondary Insurance"
+                  >
+                    <i className="fa-solid fa-plus" aria-hidden="true" />
+                  </button>
+                )}
+              </div>
             }
           />
         </div>
