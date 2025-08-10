@@ -1,6 +1,7 @@
 import reducer, {
   setPrimaryInsurance,
   setSecondaryInsurance,
+  clearPrimaryInsurance,
   clearSecondaryInsurance,
   swapInsurances,
   Insurance,
@@ -31,6 +32,24 @@ describe('insuranceSlice reducer', () => {
   describe('setSecondaryInsurance', () => {
     it('sets secondary', () => {
       const state = reducer({ primary: sampleIns }, setSecondaryInsurance(sampleIns));
+      expect(state.secondary).toBeDefined();
+    });
+  });
+
+  describe('clearPrimaryInsurance', () => {
+    it('resets primary to empty values', () => {
+      const state = reducer(
+        { primary: sampleIns, secondary: sampleIns },
+        clearPrimaryInsurance()
+      );
+      expect(state.primary).toEqual({
+        deductible: 0,
+        deductibleUsed: 0,
+        oopMax: 0,
+        coInsurance: 0,
+        copay: 0,
+        oopUsed: 0,
+      });
       expect(state.secondary).toBeDefined();
     });
   });
