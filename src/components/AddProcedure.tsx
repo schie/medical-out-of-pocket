@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, type FC } from 'react';
 import { useDispatch } from 'react-redux';
-import type { AppDispatch, Procedure } from '../store';
+import type { AppDispatch } from '../store';
 import { addProcedure } from '../store/proceduresSlice';
 import useProcedureValidation from '../hooks/useProcedureValidation';
 import CPTs from './_cpt.json';
@@ -82,12 +82,12 @@ export const AddProcedure = () => {
 
   const handleAdd = useCallback(() => {
     if (isInvalid) return;
-    dispatch(addProcedure({ id: '', name, cost: parsedCost } as Procedure));
+    dispatch(addProcedure({ name, cost: parsedCost }));
     resetAddForm();
   }, [isInvalid, parsedCost, name, dispatch, resetAddForm]);
   return (
     <div className="join mb-2 items-start w-full">
-      <div className="dropdown join-item flex-2/3">
+      <div className="dropdown join-item flex-1">
         <label tabIndex={0} className="input input-bordered flex items-center gap-2 w-full">
           <span className="opacity-50">
             <i className="fa-solid fa-search mr-1" aria-hidden="true" />
@@ -104,7 +104,7 @@ export const AddProcedure = () => {
         </label>
         {name && <SearchList name={name} onNameChange={setName} />}
       </div>
-      <label className="input input-bordered validator join-item flex-1/3">
+      <label className="input input-bordered validator join-item w-24">
         <span>$</span>
         <input
           type="number"

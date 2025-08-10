@@ -11,7 +11,8 @@ const mathjs = create(all, {
 
 export const selectProcedures = createSelector(
   (state: RootState) => state.procedures,
-  ({ list, selectedIds }) => list.map((p) => ({ ...p, selected: !!selectedIds[p.id] }))
+  ({ list, selectedIds }) =>
+    list.map((p) => ({ ...p, quantity: p.quantity ?? 1, selected: !!selectedIds[p.id] }))
 );
 
 export const sumSelectedProceduresCost = createSelector(
@@ -20,7 +21,7 @@ export const sumSelectedProceduresCost = createSelector(
     return Object.keys(selectedIds)
       .map((id) => list.find((p) => p.id === id))
       .filter((p) => !!p?.cost)
-      .reduce((sum, p) => mathjs.add(sum, p!.cost), 0);
+      .reduce((sum, p) => mathjs.add(sum, mathjs.multiply(p!.cost, p!.quantity ?? 1)), 0);
   }
 );
 
