@@ -38,6 +38,9 @@ const insuranceSlice = createSlice({
     setSecondaryInsurance: (state, action: PayloadAction<Insurance>) => {
       state.secondary = action.payload;
     },
+    clearPrimaryInsurance: (state) => {
+      state.primary = { ...emptyInsurance };
+    },
     clearSecondaryInsurance: (state) => {
       state.secondary = undefined;
     },
@@ -54,6 +57,7 @@ const insuranceSlice = createSlice({
 export const {
   setPrimaryInsurance,
   setSecondaryInsurance,
+  clearPrimaryInsurance,
   clearSecondaryInsurance,
   swapInsurances,
 } = insuranceSlice.actions;

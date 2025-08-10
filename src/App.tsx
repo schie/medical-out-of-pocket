@@ -7,6 +7,7 @@ import { type AppDispatch, type RootState, type Insurance } from './store';
 import {
   setPrimaryInsurance,
   setSecondaryInsurance,
+  clearPrimaryInsurance,
   clearSecondaryInsurance,
 } from './store/insuranceSlice';
 import { ResponsibilityBreakdown } from './components/ResponsibilityBreakdown';
@@ -49,6 +50,10 @@ function App() {
     dispatch(clearSecondaryInsurance());
   }, [dispatch]);
 
+  const clearPrimary = useCallback(() => {
+    dispatch(clearPrimaryInsurance());
+  }, [dispatch]);
+
   return (
     <div className="flex flex-col w-full gap-4 p-4">
       <header className="mb-4 text-center">
@@ -65,15 +70,24 @@ function App() {
             insurance={primary}
             onChange={handlePrimaryChange}
             cornerButton={
-              !secondary && (
+              <div className="join">
                 <button
-                  className="btn btn-circle btn-xs btn-primary"
-                  onClick={addSecondary}
-                  aria-label="Add Secondary Insurance"
+                  className="btn btn-circle btn-xs btn-error join-item"
+                  onClick={clearPrimary}
+                  aria-label="Clear Primary Insurance"
                 >
-                  <i className="fa-solid fa-plus" aria-hidden="true" />
+                  <i className="fa-solid fa-trash" aria-hidden="true" />
                 </button>
-              )
+                {!secondary && (
+                  <button
+                    className="btn btn-circle btn-xs btn-primary join-item"
+                    onClick={addSecondary}
+                    aria-label="Add Secondary Insurance"
+                  >
+                    <i className="fa-solid fa-plus" aria-hidden="true" />
+                  </button>
+                )}
+              </div>
             }
           />
         </div>
