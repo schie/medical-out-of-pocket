@@ -38,17 +38,17 @@ describe('selectors', () => {
         },
         procedures: {
           list: [
-            { id: '1', name: 'Procedure 1', cost: 100 },
-            { id: '2', name: 'Procedure 2', cost: 200 },
-            { id: '3', name: 'Procedure 3', cost: 300 },
+            { id: '1', name: 'Procedure 1', cost: 100, quantity: 1 },
+            { id: '2', name: 'Procedure 2', cost: 200, quantity: 1 },
+            { id: '3', name: 'Procedure 3', cost: 300, quantity: 1 },
           ],
           selectedIds: { '1': true, '3': true },
         },
       };
       expect(selectProcedures(state)).toEqual([
-        { id: '1', name: 'Procedure 1', cost: 100, selected: true },
-        { id: '2', name: 'Procedure 2', cost: 200, selected: false },
-        { id: '3', name: 'Procedure 3', cost: 300, selected: true },
+        { id: '1', name: 'Procedure 1', cost: 100, quantity: 1, selected: true },
+        { id: '2', name: 'Procedure 2', cost: 200, quantity: 1, selected: false },
+        { id: '3', name: 'Procedure 3', cost: 300, quantity: 1, selected: true },
       ]);
     });
 
@@ -56,8 +56,8 @@ describe('selectors', () => {
       const state: RootState = {
         procedures: {
           list: [
-            { id: '1', name: 'Procedure 1', cost: 100 },
-            { id: '2', name: 'Procedure 2', cost: 200 },
+            { id: '1', name: 'Procedure 1', cost: 100, quantity: 1 },
+            { id: '2', name: 'Procedure 2', cost: 200, quantity: 1 },
           ],
           selectedIds: {},
         },
@@ -74,8 +74,8 @@ describe('selectors', () => {
         },
       };
       expect(selectProcedures(state)).toEqual([
-        { id: '1', name: 'Procedure 1', cost: 100, selected: false },
-        { id: '2', name: 'Procedure 2', cost: 200, selected: false },
+        { id: '1', name: 'Procedure 1', cost: 100, quantity: 1, selected: false },
+        { id: '2', name: 'Procedure 2', cost: 200, quantity: 1, selected: false },
       ]);
     });
 
@@ -95,6 +95,29 @@ describe('selectors', () => {
       };
       expect(selectProcedures(state)).toEqual([]);
     });
+
+    it('defaults missing quantity to 1', () => {
+      const state: RootState = {
+        insurance: {
+          primary: {
+            deductible: 0,
+            deductibleUsed: 0,
+            copay: 0,
+            coInsurance: 0,
+            oopMax: 0,
+            oopUsed: 0,
+          },
+          secondary: undefined,
+        },
+        procedures: {
+          list: [{ id: '1', name: 'Procedure 1', cost: 100 }],
+          selectedIds: { '1': true },
+        },
+      };
+      expect(selectProcedures(state)).toEqual([
+        { id: '1', name: 'Procedure 1', cost: 100, quantity: 1, selected: true },
+      ]);
+    });
   });
 
   describe('sumSelectedProceduresCost', () => {
@@ -112,14 +135,37 @@ describe('selectors', () => {
         },
         procedures: {
           list: [
-            { id: '1', name: 'Procedure 1', cost: 100 },
-            { id: '2', name: 'Procedure 2', cost: 200 },
-            { id: '3', name: 'Procedure 3', cost: 300 },
+            { id: '1', name: 'Procedure 1', cost: 100, quantity: 1 },
+            { id: '2', name: 'Procedure 2', cost: 200, quantity: 1 },
+            { id: '3', name: 'Procedure 3', cost: 300, quantity: 1 },
           ],
           selectedIds: { '1': true, '3': true },
         },
       };
       expect(sumSelectedProceduresCost(state)).toBe(400);
+    });
+
+    it('multiplies cost by quantity', () => {
+      const state: RootState = {
+        insurance: {
+          primary: {
+            deductible: 0,
+            deductibleUsed: 0,
+            copay: 0,
+            coInsurance: 0,
+            oopMax: 0,
+            oopUsed: 0,
+          },
+        },
+        procedures: {
+          list: [
+            { id: '1', name: 'Proc 1', cost: 50, quantity: 2 },
+            { id: '2', name: 'Proc 2', cost: 25, quantity: 3 },
+          ],
+          selectedIds: { '1': true, '2': true },
+        },
+      };
+      expect(sumSelectedProceduresCost(state)).toBe(50 * 2 + 25 * 3);
     });
 
     it('returns 0 if no procedures are selected', () => {
@@ -136,8 +182,8 @@ describe('selectors', () => {
         },
         procedures: {
           list: [
-            { id: '1', name: 'Procedure 1', cost: 100 },
-            { id: '2', name: 'Procedure 2', cost: 200 },
+            { id: '1', name: 'Procedure 1', cost: 100, quantity: 1 },
+            { id: '2', name: 'Procedure 2', cost: 200, quantity: 1 },
           ],
           selectedIds: {},
         },
@@ -159,13 +205,33 @@ describe('selectors', () => {
         },
         procedures: {
           list: [
-            { id: '1', name: 'Procedure 1', cost: 0 },
-            { id: '3', name: 'Procedure 3', cost: 300 },
+            { id: '1', name: 'Procedure 1', cost: 0, quantity: 1 },
+            { id: '3', name: 'Procedure 3', cost: 300, quantity: 1 },
           ],
           selectedIds: { '1': true, '2': true, '3': true },
         },
       };
       expect(sumSelectedProceduresCost(state)).toBe(300);
+    });
+
+    it('treats missing quantity as 1', () => {
+      const state: RootState = {
+        insurance: {
+          primary: {
+            deductible: 0,
+            deductibleUsed: 0,
+            copay: 0,
+            coInsurance: 0,
+            oopMax: 0,
+            oopUsed: 0,
+          },
+        },
+        procedures: {
+          list: [{ id: '1', name: 'Proc', cost: 100 }],
+          selectedIds: { '1': true },
+        },
+      };
+      expect(sumSelectedProceduresCost(state)).toBe(100);
     });
 
     it('returns 0 if procedures list is empty', () => {
@@ -198,7 +264,7 @@ describe('selectors', () => {
           },
         },
         procedures: {
-          list: [{ id: '1', name: 'Procedure 1', cost: 100 }],
+          list: [{ id: '1', name: 'Procedure 1', cost: 100, quantity: 1 }],
           selectedIds: { '2': true },
         },
       };
@@ -218,8 +284,8 @@ describe('selectors', () => {
     it('returns 0 if total cost is 0', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 0 },
-          { id: '2', name: 'B', cost: 0 },
+          { id: '1', name: 'A', cost: 0, quantity: 1 },
+          { id: '2', name: 'B', cost: 0, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -238,8 +304,8 @@ describe('selectors', () => {
     it('applies deductible only if total cost <= deductible', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 100 },
-          { id: '2', name: 'B', cost: 50 },
+          { id: '1', name: 'A', cost: 100, quantity: 1 },
+          { id: '2', name: 'B', cost: 50, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -257,7 +323,7 @@ describe('selectors', () => {
 
     it('applies deductible, copay, and coinsurance', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 300 }],
+        list: [{ id: '1', name: 'A', cost: 300, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const insurance: Insurance = {
@@ -273,7 +339,7 @@ describe('selectors', () => {
 
     it('does not exceed out-of-pocket max', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 2000 }],
+        list: [{ id: '1', name: 'A', cost: 2000, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const insurance: Insurance = {
@@ -289,7 +355,7 @@ describe('selectors', () => {
 
     it('subtracts oopUsed from oopMax', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 2000 }],
+        list: [{ id: '1', name: 'A', cost: 2000, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const insurance: Insurance = {
@@ -305,7 +371,7 @@ describe('selectors', () => {
 
     it('handles zero copay and coinsurance', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 300 }],
+        list: [{ id: '1', name: 'A', cost: 300, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const insurance: Insurance = {
@@ -321,7 +387,7 @@ describe('selectors', () => {
 
     it('handles missing oopUsed as 0', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 1000 }],
+        list: [{ id: '1', name: 'A', cost: 1000, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const insurance: Insurance = {
@@ -350,8 +416,8 @@ describe('selectors', () => {
     it('returns patient responsibility after secondary insurance', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 500 },
-          { id: '2', name: 'B', cost: 500 },
+          { id: '1', name: 'A', cost: 500, quantity: 1 },
+          { id: '2', name: 'B', cost: 500, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -379,8 +445,8 @@ describe('selectors', () => {
     it('returns 0 if no secondary insurance and patient responsibility after primary is 0', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 0 },
-          { id: '2', name: 'B', cost: 0 },
+          { id: '1', name: 'A', cost: 0, quantity: 1 },
+          { id: '2', name: 'B', cost: 0, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -398,8 +464,8 @@ describe('selectors', () => {
     it('returns patient responsibility after primary if no secondary insurance', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 100 },
-          { id: '2', name: 'B', cost: 200 },
+          { id: '1', name: 'A', cost: 100, quantity: 1 },
+          { id: '2', name: 'B', cost: 200, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -419,7 +485,7 @@ describe('selectors', () => {
 
     it('does not exceed secondary out-of-pocket max', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 2000 }],
+        list: [{ id: '1', name: 'A', cost: 2000, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {
@@ -445,7 +511,7 @@ describe('selectors', () => {
 
     it('subtracts oopUsed from secondary oopMax', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 1000 }],
+        list: [{ id: '1', name: 'A', cost: 1000, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {
@@ -471,7 +537,7 @@ describe('selectors', () => {
 
     it('handles zero copay and coinsurance for secondary', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 300 }],
+        list: [{ id: '1', name: 'A', cost: 300, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {
@@ -497,7 +563,7 @@ describe('selectors', () => {
 
     it('handles missing oopUsed as 0 for secondary', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 1000 }],
+        list: [{ id: '1', name: 'A', cost: 1000, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {
@@ -534,8 +600,8 @@ describe('selectors', () => {
     it('returns the difference between patient responsibility after primary and after secondary', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 500 },
-          { id: '2', name: 'B', cost: 500 },
+          { id: '1', name: 'A', cost: 500, quantity: 1 },
+          { id: '2', name: 'B', cost: 500, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -563,8 +629,8 @@ describe('selectors', () => {
     it('returns 0 if patient responsibility after secondary equals after primary', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 100 },
-          { id: '2', name: 'B', cost: 200 },
+          { id: '1', name: 'A', cost: 100, quantity: 1 },
+          { id: '2', name: 'B', cost: 200, quantity: 1 },
         ],
         selectedIds: {},
       };
@@ -589,7 +655,7 @@ describe('selectors', () => {
 
     it('does not return negative values', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 100 }],
+        list: [{ id: '1', name: 'A', cost: 100, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {
@@ -613,7 +679,7 @@ describe('selectors', () => {
 
     it('handles missing oopUsed as 0 for secondary', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 1000 }],
+        list: [{ id: '1', name: 'A', cost: 1000, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {
@@ -639,8 +705,8 @@ describe('selectors', () => {
     it('returns 0 if no procedures are selected', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 100 },
-          { id: '2', name: 'B', cost: 200 },
+          { id: '1', name: 'A', cost: 100, quantity: 1 },
+          { id: '2', name: 'B', cost: 200, quantity: 1 },
         ],
         selectedIds: {},
       };
@@ -675,8 +741,8 @@ describe('selectors', () => {
     it('returns 0 if no procedures are selected', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 100 },
-          { id: '2', name: 'B', cost: 200 },
+          { id: '1', name: 'A', cost: 100, quantity: 1 },
+          { id: '2', name: 'B', cost: 200, quantity: 1 },
         ],
         selectedIds: {},
       };
@@ -694,8 +760,8 @@ describe('selectors', () => {
     it('returns 0 if patient responsibility equals total cost', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 100 },
-          { id: '2', name: 'B', cost: 200 },
+          { id: '1', name: 'A', cost: 100, quantity: 1 },
+          { id: '2', name: 'B', cost: 200, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -717,8 +783,8 @@ describe('selectors', () => {
     it('returns total cost minus patient responsibility', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 500 },
-          { id: '2', name: 'B', cost: 500 },
+          { id: '1', name: 'A', cost: 500, quantity: 1 },
+          { id: '2', name: 'B', cost: 500, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -741,7 +807,7 @@ describe('selectors', () => {
 
     it('never returns negative value', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 100 }],
+        list: [{ id: '1', name: 'A', cost: 100, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {
@@ -757,7 +823,7 @@ describe('selectors', () => {
 
     it('handles missing oopUsed as 0', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 1000 }],
+        list: [{ id: '1', name: 'A', cost: 1000, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {
@@ -787,8 +853,8 @@ describe('selectors', () => {
     it('returns correct total and percentage when secondary insurance reduces patient responsibility', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 500 },
-          { id: '2', name: 'B', cost: 500 },
+          { id: '1', name: 'A', cost: 500, quantity: 1 },
+          { id: '2', name: 'B', cost: 500, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -816,8 +882,8 @@ describe('selectors', () => {
     it('returns 0 total and 0 percentage if no procedures are selected', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 100 },
-          { id: '2', name: 'B', cost: 200 },
+          { id: '1', name: 'A', cost: 100, quantity: 1 },
+          { id: '2', name: 'B', cost: 200, quantity: 1 },
         ],
         selectedIds: {},
       };
@@ -845,8 +911,8 @@ describe('selectors', () => {
     it('returns correct total and percentage when there is no secondary insurance', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 100 },
-          { id: '2', name: 'B', cost: 200 },
+          { id: '1', name: 'A', cost: 100, quantity: 1 },
+          { id: '2', name: 'B', cost: 200, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -865,7 +931,7 @@ describe('selectors', () => {
     });
     it('handles missing oopUsed as 0 for secondary insurance', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 1000 }],
+        list: [{ id: '1', name: 'A', cost: 1000, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {
@@ -892,8 +958,8 @@ describe('selectors', () => {
     it('returns correct total and percentage when both insurances pay', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 500 },
-          { id: '2', name: 'B', cost: 500 },
+          { id: '1', name: 'A', cost: 500, quantity: 1 },
+          { id: '2', name: 'B', cost: 500, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -922,8 +988,8 @@ describe('selectors', () => {
     it('returns 0 total and 0 percentage if no procedures are selected', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 100 },
-          { id: '2', name: 'B', cost: 200 },
+          { id: '1', name: 'A', cost: 100, quantity: 1 },
+          { id: '2', name: 'B', cost: 200, quantity: 1 },
         ],
         selectedIds: {},
       };
@@ -952,8 +1018,8 @@ describe('selectors', () => {
     it('returns correct total and percentage when there is no secondary insurance', () => {
       const procedures = {
         list: [
-          { id: '1', name: 'A', cost: 100 },
-          { id: '2', name: 'B', cost: 200 },
+          { id: '1', name: 'A', cost: 100, quantity: 1 },
+          { id: '2', name: 'B', cost: 200, quantity: 1 },
         ],
         selectedIds: { '1': true, '2': true },
       };
@@ -980,7 +1046,7 @@ describe('selectors', () => {
 
     it('handles missing oopUsed as 0 for secondary insurance', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 1000 }],
+        list: [{ id: '1', name: 'A', cost: 1000, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {
@@ -1002,7 +1068,7 @@ describe('selectors', () => {
 
     it('never returns negative total or percentage', () => {
       const procedures = {
-        list: [{ id: '1', name: 'A', cost: 100 }],
+        list: [{ id: '1', name: 'A', cost: 100, quantity: 1 }],
         selectedIds: { '1': true },
       };
       const primary: Insurance = {

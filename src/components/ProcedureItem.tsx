@@ -13,6 +13,7 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(procedure.name);
   const [cost, setCost] = useState(procedure.cost.toString());
+  const [quantity, setQuantity] = useState((procedure.quantity ?? 1).toString());
   const { parsedCost, isInvalid, errorMessage } = useProcedureValidation(name, cost);
 
   const startEdit = useCallback(() => {
@@ -23,13 +24,15 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
     setIsEditing(false);
     setName(procedure.name);
     setCost(procedure.cost.toString());
-  }, [procedure.cost, procedure.name]);
+    setQuantity((procedure.quantity ?? 1).toString());
+  }, [procedure.cost, procedure.name, procedure.quantity]);
 
   const saveEdit = useCallback(() => {
     if (isInvalid) return;
-    dispatch(updateProcedure({ id: procedure.id, name, cost: parsedCost }));
+    const parsedQuantity = parseInt(quantity, 10) || 1;
+    dispatch(updateProcedure({ id: procedure.id, name, cost: parsedCost, quantity: parsedQuantity }));
     setIsEditing(false);
-  }, [dispatch, isInvalid, parsedCost, name, procedure.id]);
+  }, [dispatch, isInvalid, parsedCost, name, quantity, procedure.id]);
 
   const remove = useCallback(() => {
     dispatch(removeProcedure(procedure.id));
@@ -41,6 +44,10 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
 
   const handleCostChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setCost(e.target.value);
+  }, []);
+
+  const handleQuantityChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuantity(e.target.value);
   }, []);
 
   const handleToggle = useCallback(() => {
@@ -58,6 +65,16 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
               value={name}
               onChange={handleNameChange}
             />
+            <label className="input input-bordered validator join-item w-20">
+              <input
+                type="number"
+                className="grow"
+                min="1"
+                value={quantity}
+                onChange={handleQuantityChange}
+                required
+              />
+            </label>
             <label className="input input-bordered validator join-item w-24">
               <span>$</span>
               <input
@@ -93,7 +110,8 @@ export default function ProcedureItem({ procedure }: ProcedureItemProps) {
             onChange={handleToggle}
           />
           <span className="flex-1/2">{procedure.name}</span>
-          <span className="flex-1/6">${procedure.cost.toFixed(2)}</span>
+          <span className="w-10 text-center">{procedure.quantity ?? 1}</span>
+          <span className="flex-1/6">${(procedure.cost * (procedure.quantity ?? 1)).toFixed(2)}</span>
           <button className="btn btn-xs" onClick={startEdit}>
             <i className="fa-solid fa-pen" aria-hidden="true" />
           </button>

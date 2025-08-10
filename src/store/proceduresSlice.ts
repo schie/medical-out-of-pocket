@@ -5,6 +5,7 @@ export interface Procedure {
   id: string;
   name: string;
   cost: number;
+  quantity?: number;
 }
 
 export type ProcedureCreate = Omit<Procedure, 'id'>;
@@ -24,20 +25,21 @@ const proceduresSlice = createSlice({
   name: 'procedures',
   initialState,
   reducers: {
-    addProcedure: (state, action: PayloadAction<Procedure>) => {
+    addProcedure: (state, action: PayloadAction<ProcedureCreate>) => {
       const id = crypto.randomUUID();
-      state.list.push({ ...action.payload, id });
+      state.list.push({ ...action.payload, id, quantity: action.payload.quantity ?? 1 });
       state.selectedIds[id] = true; // Initialize as not selected
     },
     updateProcedure: (
       state,
-      action: PayloadAction<{ id: string; name?: string; cost?: number }>
+      action: PayloadAction<{ id: string; name?: string; cost?: number; quantity?: number }>
     ) => {
-      const { id, name, cost } = action.payload;
+      const { id, name, cost, quantity } = action.payload;
       const procedure = state.list.find((p) => p.id === id);
       if (procedure) {
         if (name !== undefined) procedure.name = name;
         if (cost !== undefined) procedure.cost = cost;
+        if (quantity !== undefined) procedure.quantity = quantity;
       }
     },
     removeProcedure: (state, action: PayloadAction<string>) => {
