@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.8.0](https://github.com/schie/medical-out-of-pocket/compare/v1.7.0...v1.8.0) (2025-08-10)
+
+
+### Features
+
+* add primary insurance reset ([94840e0](https://github.com/schie/medical-out-of-pocket/commit/94840e05c5b69b1ae3044360c9c2356d6f374c5f))
+* **app:** clarify disclaimer text ([f37f77a](https://github.com/schie/medical-out-of-pocket/commit/f37f77a3806f148464532200aa34417b1a5f78ad))
+
+
+### Bug Fixes
+
+* **procedures:** handle optional quantity ([0d5d571](https://github.com/schie/medical-out-of-pocket/commit/0d5d5712fa7fa135d502ed19f6adbf16c2316752))
+
 ## [1.7.0](https://github.com/schie/medical-out-of-pocket/compare/v1.6.0...v1.7.0) (2025-08-10)
 
 
