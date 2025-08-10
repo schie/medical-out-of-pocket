@@ -30,13 +30,19 @@ export default function ProceduresCard() {
         Procedures
       </h2>
       <AddProcedure />
-      <div className="max-h-111.5 overflow-y-auto">
-        <ul className="space-y-2">
-          {procedures.map((p) => (
-            <ProcedureItem key={p.id} procedure={p} />
-          ))}
-        </ul>
-      </div>
+      {procedures.length === 0 ? (
+        <p className="text-center text-base-content/60 mt-4" data-testid="no-procedures-msg">
+          No procedures added yet. Use the form above to add one.
+        </p>
+      ) : (
+        <div className="max-h-111.5 overflow-y-auto">
+          <ul className="space-y-2">
+            {procedures.map((p) => (
+              <ProcedureItem key={p.id} procedure={p} />
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
